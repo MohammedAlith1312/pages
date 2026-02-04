@@ -62,9 +62,8 @@ content:
       - name: menu_items
         label: Menu Items
         type: object
-        # list: true
-        required: false
-        default: []  
+        list: true
+   
         fields:
           - name: label
             label: Label
