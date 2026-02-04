@@ -32,11 +32,11 @@
               "label": "Label",
               "type": "string"
             },
-            {
-              "name": "url",
-              "label": "URL",
-              "type": "string"
-            },
+            # {
+            #   "name": "url",
+            #   "label": "URL",
+            #   "type": "string"
+            # },
             {
               "name": "type",
               "label": "Type",
