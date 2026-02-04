@@ -208,8 +208,20 @@ content:
             label: Hero Section
             fields:
               - name: heading
-                label: Heading
+                label: Heading Text
                 type: string
+              - name: heading_tag
+                label: Heading Level
+                type: select
+                default: h1
+                options:
+                  values:
+                    - { label: "Heading 1", value: "h1" }
+                    - { label: "Heading 2", value: "h2" }
+                    - { label: "Heading 3", value: "h3" }
+                    - { label: "Heading 4", value: "h4" }
+                    - { label: "Heading 5", value: "h5" }
+                    - { label: "Heading 6", value: "h6" }
               - name: image
                 label: Image
                 type: image
