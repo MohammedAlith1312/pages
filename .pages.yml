@@ -6,7 +6,7 @@ content:
   # === GLOBAL NAVBAR ===
   - name: navbar
     label: Navigation Bar
-    path: content/data/navbar.json
+    path: lib/navbar.json
     type: file
     format: json
     fields:
@@ -246,13 +246,11 @@ content:
               - name: border_radius
                 label: Border Radius (px)
                 type: number
-      
-     
 
   # === DYNAMIC PAGES ===
   - name: pages
     label: Pages
-    path: content/pages
+    path: lib/pages
     type: collection
     format: json
     fields:
@@ -278,7 +276,7 @@ content:
         list: true
         blockKey: type
         blocks:
-                   - name: hero
+          - name: hero
             label: Hero Section
             fields:
               - name: layout
@@ -324,7 +322,7 @@ content:
   # === FOOTER ===
   - name: footer
     label: Footer
-    path: content/data/footer.json
+    path: lib/data/footer.json
     type: file
     format: json
     fields:
