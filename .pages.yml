@@ -61,7 +61,7 @@ content:
       - name: menu_items
         label: Menu Items
         type: object
-        
+        list: true
         
         fields:
           - name: label
