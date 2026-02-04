@@ -31,6 +31,7 @@
               "name": "label",
               "label": "Label",
               "type": "string" 
+            }, 
             {
               "name": "url",
               "label": "URL",
