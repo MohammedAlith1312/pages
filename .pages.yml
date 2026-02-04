@@ -230,6 +230,22 @@ content:
                 label: Image
                 type: image
 
+              - name: background_color
+                label: Background Color (hex)
+                type: string
+              
+              - name: text_color
+                label: Text Color (hex)
+                type: string
+
+              - name: button_text
+                label: Button Text
+                type: string
+              
+              - name: button_link
+                label: Button Link
+                type: string
+
   # === FOOTER ===
   - name: footer
     label: Footer
