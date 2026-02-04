@@ -1,0 +1,7 @@
+{
+  "background_color": "#ffffff",
+  "text_color": "#000000",
+  "search_bar": {
+    "enabled": false
+  }
+}
