@@ -29,12 +29,12 @@ content:
       - name: background_color
         label: Background Color (hex)
         type: string
-        default: "#ffffff"
+     
       
       - name: text_color
         label: Text Color (hex)
         type: string
-        default: "#000000"
+     
 
       # Logo Configuration
       - name: logo
