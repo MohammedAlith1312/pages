@@ -1,19 +1,13 @@
 {
   "title": "Home",
   "slug": "/home",
-  "show_in_navbar": true,
-  "navbar_order": 1,
   "sections": [
     {
       "type": "hero",
       "layout": "reversed",
       "image": "/images/Screenshot 2026-02-04 131459.png",
       "heading": "Website Designer",
-      "description": "A creative Web Designer focused on crafting visually appealing, user-friendly websites. Skilled in modern UI/UX principles, responsive design, and transforming ideas into clean, functional digital experiences.",
-      "background_color": "#ffffff",
-      "text_color": "#000000",
-      "button_text": "Started",
-      "button_link": "/started"
+      "heading_tag": "h3"
     }
   ]
 }
