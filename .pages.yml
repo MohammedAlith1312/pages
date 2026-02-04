@@ -30,7 +30,6 @@ content:
         label: Background Color (hex)
         type: string
      
-      
       - name: text_color
         label: Text Color (hex)
         type: string
