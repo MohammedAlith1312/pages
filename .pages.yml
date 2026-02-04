@@ -10,7 +10,6 @@ content:
     type: file
     format: json
     fields:
-      # Layout & Positioning
       - name: layout
         label: Navbar Layout
         type: select
@@ -30,14 +29,17 @@ content:
       - name: background_color
         label: Background Color (hex)
         type: string
+        default: "#ffffff"
       
       - name: text_color
         label: Text Color (hex)
         type: string
+        default: "#000000"
       
       - name: padding
         label: Padding (e.g. 1rem 2rem)
         type: string
+        default: "1rem 2rem"
       
       # Logo Configuration
       - name: logo
@@ -51,22 +53,17 @@ content:
               - name: image
                 label: Logo Image
                 type: image
-              
               - name: width
                 label: Logo Width (px)
                 type: number
-              
               - name: position
                 label: Logo Position
                 type: select
                 options:
                   values:
-                    - label: Left
-                      value: left
-                    - label: Center
-                      value: center
-                    - label: Right
-                      value: right
+                    - { label: Left, value: left }
+                    - { label: Center, value: center }
+                    - { label: Right, value: right }
           
           - name: text
             label: Text Logo
@@ -74,54 +71,42 @@ content:
               - name: text
                 label: Logo Text
                 type: string
-              
               - name: font_size
                 label: Font Size (px)
                 type: number
-              
               - name: color
                 label: Text Color (hex)
                 type: string
-              
               - name: font_family
                 label: Font Family
                 type: select
                 options:
                   values:
-                    - label: Inter
-                      value: Inter, sans-serif
-                    - label: Roboto
-                      value: Roboto, sans-serif
-                    - label: Poppins
-                      value: Poppins, sans-serif
-              
+                    - { label: Inter, value: "Inter, sans-serif" }
+                    - { label: Roboto, value: "Roboto, sans-serif" }
+                    - { label: Poppins, value: "Poppins, sans-serif" }
               - name: position
                 label: Logo Position
                 type: select
                 options:
                   values:
-                    - label: Left
-                      value: left
-                    - label: Center
-                      value: center
-                    - label: Right
-                      value: right
+                    - { label: Left, value: left }
+                    - { label: Center, value: center }
+                    - { label: Right, value: right }
       
       # Menu Items
       - name: menu_items
         label: Menu Items
         type: object
         list: true
-        default: []
+        default: []  # Prevents "Required" validation error
         fields:
           - name: label
             label: Menu Label
             type: string
-          
           - name: link
             label: Menu Link
             type: string
-          
           - name: order
             label: Display Order
             type: number
@@ -131,12 +116,9 @@ content:
         type: select
         options:
           values:
-            - label: Left
-              value: left
-            - label: Center
-              value: center
-            - label: Right
-              value: right
+            - { label: Left, value: left }
+            - { label: Center, value: center }
+            - { label: Right, value: right }
       
       # Search Bar
       - name: search_bar
@@ -146,35 +128,26 @@ content:
           - name: enabled
             label: Show Search Bar
             type: boolean
-          
           - name: placeholder
             label: Placeholder Text
             type: string
-          
           - name: position
             label: Search Bar Position
             type: select
             options:
               values:
-                - label: Left
-                  value: left
-                - label: Center
-                  value: center
-                - label: Right
-                  value: right
-          
+                - { label: Left, value: left }
+                - { label: Center, value: center }
+                - { label: Right, value: right }
           - name: width
             label: Search Bar Width (px)
             type: number
-          
           - name: background_color
             label: Background Color (hex)
             type: string
-          
           - name: text_color
             label: Text Color (hex)
             type: string
-          
           - name: border_radius
             label: Border Radius (px)
             type: number
@@ -187,19 +160,14 @@ content:
           - name: enabled
             label: Show Auth Buttons
             type: boolean
-          
           - name: position
             label: Buttons Position
             type: select
             options:
               values:
-                - label: Left
-                  value: left
-                - label: Center
-                  value: center
-                - label: Right
-                  value: right
-          
+                - { label: Left, value: left }
+                - { label: Center, value: center }
+                - { label: Right, value: right }
           - name: login_button
             label: Login Button
             type: object
@@ -207,23 +175,18 @@ content:
               - name: text
                 label: Button Text
                 type: string
-              
               - name: link
                 label: Button Link
                 type: string
-              
               - name: background_color
                 label: Background Color (hex)
                 type: string
-              
               - name: text_color
                 label: Text Color (hex)
                 type: string
-              
               - name: border_radius
                 label: Border Radius (px)
                 type: number
-          
           - name: signup_button
             label: Signup Button
             type: object
@@ -231,19 +194,15 @@ content:
               - name: text
                 label: Button Text
                 type: string
-              
               - name: link
                 label: Button Link
                 type: string
-              
               - name: background_color
                 label: Background Color (hex)
                 type: string
-              
               - name: text_color
                 label: Text Color (hex)
                 type: string
-              
               - name: border_radius
                 label: Border Radius (px)
                 type: number
@@ -254,28 +213,27 @@ content:
     path: lib/pages
     type: collection
     format: json
-    filename: "{year}-{month}-{day}-{primary}.json"
+    filename: "{year}-{month}-{day}-{primary}.json" # Fixes the .md issue
     fields:
       - name: title
         label: Page Title
         type: string
-      
+        required: true
       - name: slug
         label: URL Slug
         type: string
-      
+        required: true
       - name: show_in_navbar
         label: Show in Navigation
         type: boolean
-      
       - name: navbar_order
         label: Navbar Order
         type: number
-      
       - name: sections
         label: Page Sections
         type: block
         list: true
+        default: [] # Prevents validation error on empty pages
         blockKey: type
         blocks:
           - name: hero
@@ -292,31 +250,24 @@ content:
                       value: reversed
                     - label: Centered (Text Center, Background Image)
                       value: centered
-              
               - name: image
                 label: Hero Image
                 type: image
-              
               - name: heading
                 label: Heading
                 type: string
-              
               - name: description
                 label: Description
                 type: text
-              
               - name: background_color
                 label: Background Color (hex)
                 type: string
-              
               - name: text_color
                 label: Text Color (hex)
                 type: string
-
               - name: button_text
                 label: Button Text
                 type: string
-              
               - name: button_link
                 label: Button Link
                 type: string
@@ -331,11 +282,9 @@ content:
       - name: text
         label: Footer Text
         type: string
-      
       - name: background_color
         label: Background (hex)
         type: string
-      
       - name: text_color
         label: Text Color (hex)
         type: string
