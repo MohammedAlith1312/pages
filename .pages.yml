@@ -207,6 +207,20 @@ content:
           - name: hero
             label: Hero Section
             fields:
+              
+              - name: layout
+                label: Layout
+                type: select
+                options:
+                  values:
+                    - label: Standard (Text Left, Image Right)
+                      value: standard
+                    - label: Reversed (Text Right, Image Left)
+                      value: reversed
+                    - label: Centered (Text Center, Background Image)
+                      value: centered
+
+              
               - name: heading
                 label: Heading Text
                 type: string
