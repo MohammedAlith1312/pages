@@ -15,6 +15,7 @@ content:
         label: Navbar Layout
         type: select
         required: false
+        default: space-between
         options:
           values:
             - label: Space Between (Logo left, Menu right)
@@ -32,16 +33,19 @@ content:
         label: Background Color (hex)
         type: string
         required: false
+        default: "#ffffff"
       
       - name: text_color
         label: Text Color (hex)
         type: string
         required: false
+        default: "#000000"
       
       - name: padding
         label: Padding (e.g. 1rem 2rem)
         type: string
         required: false
+        default: "1rem 2rem"
       
       # Logo Configuration
       - name: logo
@@ -56,17 +60,19 @@ content:
               - name: image
                 label: Logo Image
                 type: image
-                required: false
+                required: true
               
               - name: width
                 label: Logo Width (px)
                 type: number
                 required: false
+                default: 150
               
               - name: position
                 label: Logo Position
                 type: select
                 required: false
+                default: left
                 options:
                   values:
                     - label: Left
@@ -82,22 +88,25 @@ content:
               - name: text
                 label: Logo Text
                 type: string
-                required: false
+                required: true
               
               - name: font_size
                 label: Font Size (px)
                 type: number
                 required: false
+                default: 24
               
               - name: color
                 label: Text Color (hex)
                 type: string
                 required: false
+                default: "#000000"
               
               - name: font_family
                 label: Font Family
                 type: select
                 required: false
+                default: Inter, sans-serif
                 options:
                   values:
                     - label: Inter
@@ -111,6 +120,7 @@ content:
                 label: Logo Position
                 type: select
                 required: false
+                default: left
                 options:
                   values:
                     - label: Left
@@ -125,27 +135,33 @@ content:
         label: Menu Items
         type: object
         list: true
+        # Adding default: [] is critical to prevent "Required" errors when empty
         required: false
+        default: []
         fields:
           - name: label
             label: Menu Label
             type: string
-            required: false
+            # If a menu item exists, it MUST have a label
+            required: true
           
           - name: link
             label: Menu Link
             type: string
-            required: false
+            # If a menu item exists, it MUST have a link
+            required: true
           
           - name: order
             label: Display Order
             type: number
             required: false
+            default: 0
       
       - name: menu_position
         label: Menu Position
         type: select
         required: false
+        default: right
         options:
           values:
             - label: Left
@@ -160,21 +176,25 @@ content:
         label: Search Bar
         type: object
         required: false
+        default: {}
         fields:
           - name: enabled
             label: Show Search Bar
             type: boolean
             required: false
+            default: false
           
           - name: placeholder
             label: Placeholder Text
             type: string
             required: false
+            default: "Search..."
           
           - name: position
             label: Search Bar Position
             type: select
             required: false
+            default: right
             options:
               values:
                 - label: Left
@@ -188,37 +208,44 @@ content:
             label: Search Bar Width (px)
             type: number
             required: false
+            default: 300
           
           - name: background_color
             label: Background Color (hex)
             type: string
             required: false
+            default: "#f5f5f5"
           
           - name: text_color
             label: Text Color (hex)
             type: string
             required: false
+            default: "#000000"
           
           - name: border_radius
             label: Border Radius (px)
             type: number
             required: false
+            default: 8
       
       # Auth Buttons
       - name: auth_buttons
         label: Login/Signup Buttons
         type: object
         required: false
+        default: {}
         fields:
           - name: enabled
             label: Show Auth Buttons
             type: boolean
             required: false
+            default: false
           
           - name: position
             label: Buttons Position
             type: select
             required: false
+            default: right
             options:
               values:
                 - label: Left
@@ -232,59 +259,70 @@ content:
             label: Login Button
             type: object
             required: false
+            default: {}
             fields:
               - name: text
                 label: Button Text
                 type: string
                 required: false
+                default: "Login"
               
               - name: link
                 label: Button Link
                 type: string
                 required: false
+                default: "/login"
               
               - name: background_color
                 label: Background Color (hex)
                 type: string
                 required: false
+                default: "#ffffff"
               
               - name: text_color
                 label: Text Color (hex)
                 type: string
                 required: false
+                default: "#000000"
               
               - name: border_radius
                 label: Border Radius (px)
                 type: number
                 required: false
+                default: 8
           
           - name: signup_button
             label: Signup Button
             type: object
             required: false
+            default: {}
             fields:
               - name: text
                 label: Button Text
                 type: string
                 required: false
+                default: "Sign Up"
               
               - name: link
                 label: Button Link
                 type: string
                 required: false
+                default: "/signup"
               
               - name: background_color
                 label: Background Color (hex)
                 type: string
                 required: false
+                default: "#007bff"
               
               - name: text_color
                 label: Text Color (hex)
                 type: string
                 required: false
+                default: "#ffffff"
               
               - name: border_radius
                 label: Border Radius (px)
                 type: number
                 required: false
-
+                default: 8
