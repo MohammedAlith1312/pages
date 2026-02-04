@@ -253,6 +253,7 @@ content:
     path: lib/pages
     type: collection
     format: json
+    filename: "{year}-{month}-{day}-{primary}.json"
     fields:
       - name: title
         label: Page Title
