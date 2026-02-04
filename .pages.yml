@@ -125,27 +125,27 @@ content:
         label: Menu Items
         type: object
         list: true
-        required: false
+  
         fields:
           - name: label
             label: Menu Label
             type: string
-            required: false
+   
           
           - name: link
             label: Menu Link
             type: string
-            required: false
+          
           
           - name: order
             label: Display Order
             type: number
-            required: false
+            
       
       - name: menu_position
         label: Menu Position
         type: select
-        required: false
+        
         options:
           values:
             - label: Left
