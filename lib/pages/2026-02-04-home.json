@@ -7,7 +7,11 @@
       "heading": "Website Designer",
       "heading_tag": "h3",
       "description": "A creative Web Designer focused on crafting visually appealing, user-friendly websites. Skilled in modern UI/UX principles, responsive design, and transforming ideas into clean, functional digital experiences.",
-      "image": "/images/Screenshot 2026-02-04 131459.png"
+      "image": "/images/Screenshot 2026-02-04 131459.png",
+      "background_color": "#ffffff",
+      "text_color": "#000000",
+      "button_text": "Started",
+      "button_link": "/started"
     }
   ]
 }
