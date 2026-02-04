@@ -1,0 +1,8 @@
+{
+  "search_bar": {
+    "enabled": false
+  },
+  "auth_buttons": {
+    "enabled": false
+  }
+}
