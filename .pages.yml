@@ -222,6 +222,10 @@ content:
                     - { label: "Heading 4", value: "h4" }
                     - { label: "Heading 5", value: "h5" }
                     - { label: "Heading 6", value: "h6" }
+              - name: description
+                label: Description
+                type: text
+                    
               - name: image
                 label: Image
                 type: image
