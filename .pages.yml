@@ -1,0 +1,342 @@
+media:
+  input: public/images
+  output: /images
+
+content:
+  # === GLOBAL NAVBAR ===
+  - name: navbar
+    label: Navigation Bar
+    path: lib/navbar.json
+    type: file
+    format: json
+    fields:
+      # Layout & Positioning
+      - name: layout
+        label: Navbar Layout
+        type: select
+        options:
+          values:
+            - label: Space Between (Logo left, Menu right)
+              value: space-between
+            - label: Space Around (Evenly distributed)
+              value: space-around
+            - label: Center (Everything centered)
+              value: center
+            - label: Left Aligned
+              value: flex-start
+            - label: Right Aligned
+              value: flex-end
+      
+      - name: background_color
+        label: Background Color (hex)
+        type: string
+      
+      - name: text_color
+        label: Text Color (hex)
+        type: string
+      
+      - name: padding
+        label: Padding (e.g. 1rem 2rem)
+        type: string
+      
+      # Logo Configuration
+      - name: logo
+        label: Logo Configuration
+        type: block
+        blockKey: type
+        blocks:
+          - name: image
+            label: Image Logo
+            fields:
+              - name: image
+                label: Logo Image
+                type: image
+              
+              - name: width
+                label: Logo Width (px)
+                type: number
+              
+              - name: position
+                label: Logo Position
+                type: select
+                options:
+                  values:
+                    - label: Left
+                      value: left
+                    - label: Center
+                      value: center
+                    - label: Right
+                      value: right
+          
+          - name: text
+            label: Text Logo
+            fields:
+              - name: text
+                label: Logo Text
+                type: string
+              
+              - name: font_size
+                label: Font Size (px)
+                type: number
+              
+              - name: color
+                label: Text Color (hex)
+                type: string
+              
+              - name: font_family
+                label: Font Family
+                type: select
+                options:
+                  values:
+                    - label: Inter
+                      value: Inter, sans-serif
+                    - label: Roboto
+                      value: Roboto, sans-serif
+                    - label: Poppins
+                      value: Poppins, sans-serif
+              
+              - name: position
+                label: Logo Position
+                type: select
+                options:
+                  values:
+                    - label: Left
+                      value: left
+                    - label: Center
+                      value: center
+                    - label: Right
+                      value: right
+      
+      # Menu Items
+      - name: menu_items
+        label: Menu Items
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: Menu Label
+            type: string
+          
+          - name: link
+            label: Menu Link
+            type: string
+          
+          - name: order
+            label: Display Order
+            type: number
+      
+      - name: menu_position
+        label: Menu Position
+        type: select
+        options:
+          values:
+            - label: Left
+              value: left
+            - label: Center
+              value: center
+            - label: Right
+              value: right
+      
+      # Search Bar
+      - name: search_bar
+        label: Search Bar
+        type: object
+        fields:
+          - name: enabled
+            label: Show Search Bar
+            type: boolean
+          
+          - name: placeholder
+            label: Placeholder Text
+            type: string
+          
+          - name: position
+            label: Search Bar Position
+            type: select
+            options:
+              values:
+                - label: Left
+                  value: left
+                - label: Center
+                  value: center
+                - label: Right
+                  value: right
+          
+          - name: width
+            label: Search Bar Width (px)
+            type: number
+          
+          - name: background_color
+            label: Background Color (hex)
+            type: string
+          
+          - name: text_color
+            label: Text Color (hex)
+            type: string
+          
+          - name: border_radius
+            label: Border Radius (px)
+            type: number
+      
+      # Auth Buttons
+      - name: auth_buttons
+        label: Login/Signup Buttons
+        type: object
+        fields:
+          - name: enabled
+            label: Show Auth Buttons
+            type: boolean
+          
+          - name: position
+            label: Buttons Position
+            type: select
+            options:
+              values:
+                - label: Left
+                  value: left
+                - label: Center
+                  value: center
+                - label: Right
+                  value: right
+          
+          - name: login_button
+            label: Login Button
+            type: object
+            fields:
+              - name: text
+                label: Button Text
+                type: string
+              
+              - name: link
+                label: Button Link
+                type: string
+              
+              - name: background_color
+                label: Background Color (hex)
+                type: string
+              
+              - name: text_color
+                label: Text Color (hex)
+                type: string
+              
+              - name: border_radius
+                label: Border Radius (px)
+                type: number
+          
+          - name: signup_button
+            label: Signup Button
+            type: object
+            fields:
+              - name: text
+                label: Button Text
+                type: string
+              
+              - name: link
+                label: Button Link
+                type: string
+              
+              - name: background_color
+                label: Background Color (hex)
+                type: string
+              
+              - name: text_color
+                label: Text Color (hex)
+                type: string
+              
+              - name: border_radius
+                label: Border Radius (px)
+                type: number
+
+  # === DYNAMIC PAGES ===
+  - name: pages
+    label: Pages
+    path: lib/pages
+    type: collection
+   
+    format: json
+    fields:
+      - name: title
+        label: Page Title
+        type: string
+      
+      - name: slug
+        label: URL Slug
+        type: string
+      
+      - name: show_in_navbar
+        label: Show in Navigation
+        type: boolean
+      
+      - name: navbar_order
+        label: Navbar Order
+        type: number
+      
+      - name: sections
+        label: Page Sections
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+          - name: hero
+            label: Hero Section
+            fields:
+              - name: layout
+                label: Layout
+                type: select
+                options:
+                  values:
+                    - label: Standard (Text Left, Image Right)
+                      value: standard
+                    - label: Reversed (Text Right, Image Left)
+                      value: reversed
+                    - label: Centered (Text Center, Background Image)
+                      value: centered
+              
+              - name: image
+                label: Hero Image
+                type: image
+              
+              - name: heading
+                label: Heading
+                type: string
+              
+              - name: description
+                label: Description
+                type: text
+              
+              - name: background_color
+                label: Background Color (hex)
+                type: string
+              
+              - name: text_color
+                label: Text Color (hex)
+                type: string
+
+              - name: button_text
+                label: Button Text
+                type: string
+              
+              - name: button_link
+                label: Button Link
+                type: string
+
+  # === FOOTER ===
+  - name: footer
+    label: Footer
+    path: lib/footer.json
+    type: file
+    format: json
+    fields:
+      - name: text
+        label: Footer Text
+        type: string
+      
+      - name: background_color
+        label: Background (hex)
+        type: string
+      
+      - name: text_color
+        label: Text Color (hex)
+        type: string
+
+
