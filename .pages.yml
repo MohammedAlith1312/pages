@@ -30,19 +30,22 @@
             {
               "name": "label",
               "label": "Label",
-              "type": "string" 
-            }, 
+              "type": "string"
+            },
             {
               "name": "url",
               "label": "URL",
-              "type": "string" 
+              "type": "string"
             },
             {
               "name": "type",
               "label": "Type",
               "type": "string",
               "options": {
-                "values": ["link", "button"]
+                "values": [
+                  "link",
+                  "button"
+                ]
               }
             }
           ]
