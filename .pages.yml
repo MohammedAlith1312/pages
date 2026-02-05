@@ -136,25 +136,28 @@ content:
                 type: string
 
           # NEW: Single Card Block
-          - name: card
-            label: Card
+          - name: features
+            label: Feature Section
             fields:
-              - name: title
-                label: Card Title
-                type: string
-              - name: image
-                label: Card Image
-                type: image
-              - name: description
-                label: Card Description
-                type: text
-              - name: link
-                label: Card Link
-                type: string
-              - name: link_text
-                label: Link Text
-                type: string
-                default: "Learn More"
+               - name: card
+                 label: Card
+                 fields:
+                   - name: title
+                     label: Card Title
+                     type: string
+                   - name: image
+                     label: Card Image
+                     type: image
+                   - name: description
+                     label: Card Description
+                     type: text
+                   - name: link
+                     label: Card Link
+                     type: string
+                   - name: link_text
+                     label: Link Text
+                     type: string
+                     default: "Learn More"
 
   # === FOOTER ===
   - name: footer
