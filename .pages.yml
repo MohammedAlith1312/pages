@@ -119,7 +119,7 @@ content:
               - name: image
                 label: Image
                 type: image
-                list: true    # <--- This enables multiple uploads
+                   # <--- This enables multiple uploads
               
               - name: background_color
                 label: Background Color (hex)
