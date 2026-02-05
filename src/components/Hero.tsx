@@ -1,4 +1,5 @@
 import Image from "next/image";
+import React from "react";
 
 interface HeroProps {
     heading: string;
@@ -24,7 +25,6 @@ export default function Hero({
     image,
 }: HeroProps) {
     const isReversed = layout === "reversed";
-    const HeadingTag = heading_tag;
 
     return (
         <section
@@ -37,9 +37,11 @@ export default function Hero({
                         } items-center gap-12`}
                 >
                     <div className="flex-1 text-center md:text-left">
-                        <HeadingTag className="text-3xl md:text-5xl font-bold mb-6">
-                            {heading}
-                        </HeadingTag>
+                        {React.createElement(
+                            heading_tag,
+                            { className: "font-bold mb-6" },
+                            heading
+                        )}
                         <p className="text-lg md:text-xl opacity-90 mb-10 leading-relaxed max-w-2xl mx-auto md:mx-0">
                             {description}
                         </p>

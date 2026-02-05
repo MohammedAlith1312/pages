@@ -1,4 +1,4 @@
-import homeData from "../../../lib/pages/2026-02-04-home.json";
+import homeData from "../../../lib/pages/home.json";
 import Hero from "@/components/Hero";
 import { Metadata } from "next";
 
