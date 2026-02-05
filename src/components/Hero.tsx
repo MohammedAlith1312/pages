@@ -2,6 +2,7 @@ import Image from "next/image";
 
 interface HeroProps {
     heading: string;
+    heading_tag: any;
     description: string;
     background_color: string;
     text_color: string;
@@ -13,6 +14,7 @@ interface HeroProps {
 
 export default function Hero({
     heading,
+    heading_tag,
     description,
     background_color,
     text_color,
@@ -22,10 +24,11 @@ export default function Hero({
     image,
 }: HeroProps) {
     const isReversed = layout === "reversed";
+    const HeadingTag = heading_tag;
 
     return (
         <section
-            className="relative py-20 md:py-32 overflow-hidden"
+            className="relative py-20 md:py-32"
             style={{ backgroundColor: background_color, color: text_color }}
         >
             <div className="max-w-7xl mx-auto px-6">
@@ -34,16 +37,16 @@ export default function Hero({
                         } items-center gap-12`}
                 >
                     <div className="flex-1 text-center md:text-left">
-                        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 animate-fade-in-up">
+                        <HeadingTag className="text-3xl md:text-5xl font-bold mb-6">
                             {heading}
-                        </h1>
-                        <p className="text-lg md:text-xl opacity-80 mb-10 leading-relaxed max-w-2xl mx-auto md:mx-0 animate-fade-in-up delay-100">
+                        </HeadingTag>
+                        <p className="text-lg md:text-xl opacity-90 mb-10 leading-relaxed max-w-2xl mx-auto md:mx-0">
                             {description}
                         </p>
-                        <div className="animate-fade-in-up delay-200">
+                        <div>
                             <a
                                 href={button_link}
-                                className="inline-block px-8 py-4 rounded-full text-lg font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
+                                className="inline-block px-8 py-4 rounded-lg text-lg font-semibold transition-all hover:opacity-90 shadow-md"
                                 style={{
                                     backgroundColor: text_color,
                                     color: background_color,
@@ -53,9 +56,9 @@ export default function Hero({
                             </a>
                         </div>
                     </div>
-                    <div className="flex-1 w-full max-w-2xl animate-fade-in delay-300">
-                        {image ? (
-                            <div className="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+                    <div className="flex-1 w-full max-w-2xl">
+                        {image && (
+                            <div className="relative aspect-[16/9] rounded-xl overflow-hidden shadow-lg border border-black/5">
                                 <Image
                                     src={image}
                                     alt={heading}
@@ -63,14 +66,6 @@ export default function Hero({
                                     className="object-cover"
                                 />
                             </div>
-                        ) : (
-                            <div
-                                className="aspect-square rounded-full opacity-20 blur-3xl animate-pulse mx-auto"
-                                style={{
-                                    background: `linear-gradient(45deg, ${text_color}, transparent)`,
-                                    maxWidth: '400px'
-                                }}
-                            ></div>
                         )}
                     </div>
                 </div>
