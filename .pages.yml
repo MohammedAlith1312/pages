@@ -15,25 +15,21 @@ content:
         type: select
         options:
           values:
-            - label: Space Between
-              value: space-between
-            - label: Space Around
-              value: space-around
-            - label: Center
-              value: center
-            - label: Left Aligned
-              value: flex-start
-            - label: Right Aligned
-              value: flex-end
+            - { label: Space Between, value: space-between }
+            - { label: Space Around, value: space-around }
+            - { label: Center, value: center }
+            - { label: Left Aligned, value: flex-start }
+            - { label: Right Aligned, value: flex-end }
       
       - name: background_color
         label: Background Color (hex)
         type: string
+        default: "#ffffff"
      
       - name: text_color
         label: Text Color (hex)
         type: string
-     
+        default: "#000000"
 
       # Logo Configuration
       - name: logo
@@ -62,7 +58,8 @@ content:
         label: Menu Items
         type: object
         list: true
-        
+        default: []      # This must be here for 'Add Item' to work
+        required: false
         fields:
           - name: label
             label: Label
@@ -70,7 +67,8 @@ content:
           - name: link
             label: Link
             type: string
-# Search Bar
+
+      # Search Bar
       - name: search_bar
         label: Search Bar
         type: object
@@ -78,39 +76,14 @@ content:
           - name: enabled
             label: Show Search Bar
             type: boolean
-          
           - name: placeholder
             label: Placeholder Text
             type: string
-          
-          - name: position
-            label: Search Bar Position
-            type: select
-            options:
-              values:
-                - label: Left
-                  value: left
-                - label: Center
-                  value: center
-                - label: Right
-                  value: right
-          
           - name: width
             label: Search Bar Width (px)
             type: number
-          
-          - name: background_color
-            label: Background Color (hex)
-            type: string
-          
-          - name: text_color
-            label: Text Color (hex)
-            type: string
-          
-          - name: border_radius
-            label: Border Radius (px)
-            type: number
-      
+            default: 200
+
       # Auth Buttons
       - name: auth_buttons
         label: Login/Signup Buttons
@@ -119,66 +92,18 @@ content:
           - name: enabled
             label: Show Auth Buttons
             type: boolean
-          
-          - name: position
-            label: Buttons Position
-            type: select
-            options:
-              values:
-                - label: Left
-                  value: left
-                - label: Center
-                  value: center
-                - label: Right
-                  value: right
-          
           - name: login_button
             label: Login Button
             type: object
             fields:
-              - name: text
-                label: Button Text
-                type: string
-              
-              - name: link
-                label: Button Link
-                type: string
-              
-              - name: background_color
-                label: Background Color (hex)
-                type: string
-              
-              - name: text_color
-                label: Text Color (hex)
-                type: string
-              
-              - name: border_radius
-                label: Border Radius (px)
-                type: number
-          
+              - { name: text, label: Text, type: string, default: "Login" }
+              - { name: link, label: Link, type: string }
           - name: signup_button
             label: Signup Button
             type: object
             fields:
-              - name: text
-                label: Button Text
-                type: string
-              
-              - name: link
-                label: Button Link
-                type: string
-              
-              - name: background_color
-                label: Background Color (hex)
-                type: string
-              
-              - name: text_color
-                label: Text Color (hex)
-                type: string
-              
-              - name: border_radius
-                label: Border Radius (px)
-                type: number
+              - { name: text, label: Text, type: string, default: "Sign Up" }
+              - { name: link, label: Link, type: string }
 
   # === DYNAMIC PAGES ===
   - name: pages
@@ -186,41 +111,37 @@ content:
     path: lib/pages
     type: collection
     format: json
-    filename: "{year}-{month}-{day}-{primary}.json" # Fixes the .md issue
+    # MODIFIED: No date. Uses slug for path-like filenames.
+    filename: "{fields.slug}.json" 
     fields:
       - name: title
         label: Page Title
         type: string
+        required: true
       - name: slug
         label: URL Slug
         type: string
+        required: true
       
-      # === FIX: Added default: [] to satisfy the Required check ===
       - name: sections
         label: Page Sections
         type: block
         list: true
         required: false
-        default: []
+        default: []      # This must be here for 'Add Item' to work
         blockKey: type
         blocks:
           - name: hero
             label: Hero Section
             fields:
-              
               - name: layout
                 label: Layout
                 type: select
                 options:
                   values:
-                    - label: Standard (Text Left, Image Right)
-                      value: standard
-                    - label: Reversed (Text Right, Image Left)
-                      value: reversed
-                    - label: Centered (Text Center, Background Image)
-                      value: centered
-
-              
+                    - { label: Standard, value: standard }
+                    - { label: Reversed, value: reversed }
+                    - { label: Centered, value: centered }
               - name: heading
                 label: Heading Text
                 type: string
@@ -230,32 +151,24 @@ content:
                 default: h1
                 options:
                   values:
-                    - { label: "Heading 1", value: "h1" }
-                    - { label: "Heading 2", value: "h2" }
-                    - { label: "Heading 3", value: "h3" }
-                    - { label: "Heading 4", value: "h4" }
-                    - { label: "Heading 5", value: "h5" }
-                    - { label: "Heading 6", value: "h6" }
+                    - { label: H1, value: h1 }
+                    - { label: H2, value: h2 }
+                    - { label: H3, value: h3 }
               - name: description
                 label: Description
                 type: text
-                    
               - name: image
                 label: Image
                 type: image
-
               - name: background_color
                 label: Background Color (hex)
                 type: string
-              
               - name: text_color
                 label: Text Color (hex)
                 type: string
-
               - name: button_text
                 label: Button Text
                 type: string
-              
               - name: button_link
                 label: Button Link
                 type: string
@@ -270,3 +183,4 @@ content:
       - name: text
         label: Footer Text
         type: string
+        default: "© 2026 Your Brand"
