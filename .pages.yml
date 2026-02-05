@@ -131,6 +131,7 @@ content:
               - name: button_text
                 label: Button Text
                 type: string
+              - name: enabled
               - name: button_link
                 label: Button Link
                 type: string
