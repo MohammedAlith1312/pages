@@ -59,9 +59,7 @@ content:
         label: Search Bar
         type: object
         fields:
-          - name: enabled
-            label: Show Search Bar
-            type: boolean
+         
           - name: placeholder
             label: Placeholder Text
             type: string
@@ -70,9 +68,7 @@ content:
         label: Login/Signup Buttons
         type: object
         fields:
-          - name: enabled
-            label: Show Auth Buttons
-            type: boolean
+         
           - name: login_button
             label: Login Button
             type: object
@@ -130,10 +126,7 @@ content:
                 type: string
               
               # Button Toggle
-              - name: show_button
-                label: Show Button
-                type: boolean
-                default: false
+              
               - name: button_text
                 label: Button Text
                 type: string
