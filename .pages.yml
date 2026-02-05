@@ -10,17 +10,6 @@ content:
     type: file
     format: json
     fields:
-      - name: layout
-        label: Navbar Layout
-        type: select
-        options:
-          values:
-            - { label: Space Between, value: space-between }
-            - { label: Space Around, value: space-around }
-            - { label: Center, value: center }
-            - { label: Left Aligned, value: flex-start }
-            - { label: Right Aligned, value: flex-end }
-      
       - name: background_color
         label: Background Color (hex)
         type: string
@@ -53,12 +42,11 @@ content:
                 label: Text
                 type: string
 
-      # === FIX: Added default: [] to satisfy the Required check ===
       - name: menu_items
         label: Menu Items
         type: object
         list: true
-        default: []      # This must be here for 'Add Item' to work
+        default: []
         required: false
         fields:
           - name: label
@@ -68,7 +56,6 @@ content:
             label: Link
             type: string
 
-      # Search Bar
       - name: search_bar
         label: Search Bar
         type: object
@@ -84,7 +71,6 @@ content:
             type: number
             default: 200
 
-      # Auth Buttons
       - name: auth_buttons
         label: Login/Signup Buttons
         type: object
@@ -111,8 +97,7 @@ content:
     path: lib/pages
     type: collection
     format: json
-    # MODIFIED: No date. Uses slug for path-like filenames.
-    filename: "{fields.slug}.json" 
+    filename: "{fields.slug}.json"
     fields:
       - name: title
         label: Page Title
@@ -127,26 +112,16 @@ content:
         label: Page Sections
         type: block
         list: true
+        default: []
+        required: false
         blockKey: type
         blocks:
           - name: hero
             label: Hero Section
             fields:
-              - name: layout
-                label: Layout
-                type: select
-                options:
-                  values:
-                    - label: Standard (Text Left, Image Right)
-                      value: standard
-                    - label: Reversed (Text Right, Image Left)
-                      value: reversed
-                    - label: Centered (Text Center, Background Image)
-                      value: centered
               - name: heading
                 label: Heading Text
                 type: string
-            
               - name: description
                 label: Description
                 type: text
