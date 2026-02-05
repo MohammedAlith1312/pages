@@ -84,12 +84,20 @@ content:
             fields:
               - { name: text, label: Text, type: string, default: "Login" }
               - { name: link, label: Link, type: string }
+              - name: background_color
+                label: Background Color (hex)
+                type: string
+                
+              - name: text_color
+                label: Text Color (hex)
+                type: string
           - name: signup_button
             label: Signup Button
             type: object
             fields:
               - { name: text, label: Text, type: string, default: "Sign Up" }
               - { name: link, label: Link, type: string }
+              
               - name: background_color
                 label: Background Color (hex)
                 type: string
