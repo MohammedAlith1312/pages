@@ -24,6 +24,10 @@
           "link_text": "Learn More"
         },
         {
+          "title": "Responsive Design",
+          "image": "/images/responsive-icon-1.jpg",
+          "description": "Every website we build is fully responsive and optimized for mobile, tablet, and desktop screens. We ensure your website looks perfect and functions smoothly on all devices.",
+          "link": "/responsive",
           "link_text": "Learn More"
         },
         {
