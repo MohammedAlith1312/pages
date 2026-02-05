@@ -5,12 +5,12 @@ import PageBuilder from "@/components/PageBuilder";
 
 export default async function LandingPage() {
   const homeData = await getPageData("home");
-  const servicesData = await getPageData("services");
+  // const servicesData = await getPageData("services");
 
   return (
     <div>
       {homeData ? <PageBuilder sections={homeData.sections} /> : null}
-      {servicesData ? <PageBuilder sections={servicesData.sections} /> : null}
+
     </div>
   );
 }
