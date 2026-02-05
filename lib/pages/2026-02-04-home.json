@@ -4,7 +4,7 @@
   "sections": [
     {
       "type": "hero",
-      "layout": "reversed",
+      "layout": "standard",
       "heading": "Website Designer",
       "heading_tag": "h2",
       "description": "A creative Web Designer focused on crafting visually appealing, user-friendly websites. Skilled in modern UI/UX principles, responsive design, and transforming ideas into clean, functional digital experiences.",
