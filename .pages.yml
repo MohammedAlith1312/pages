@@ -130,8 +130,8 @@ content:
         label: Page Sections
         type: block
         list: true
-        required: false
-        default: []      # Crucial: Allows adding first item without error
+        # required: false
+        # default: []      # Crucial: Allows adding first item without error
         blockKey: type
         blocks:
           - name: hero
