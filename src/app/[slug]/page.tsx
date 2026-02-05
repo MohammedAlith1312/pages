@@ -2,6 +2,9 @@ import { getPageData, getPageSlugs } from "@/lib/api";
 import PageBuilder from "@/components/PageBuilder";
 import { Metadata } from "next";
 
+// Allow new pages to be generated on demand (On-Demand ISR)
+export const dynamicParams = true;
+
 interface Props {
     params: Promise<{ slug: string }>;
 }
