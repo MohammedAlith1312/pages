@@ -20,7 +20,6 @@ content:
         type: string
         default: "#000000"
 
-      # Logo Configuration
       - name: logo
         label: Logo Configuration
         type: block
@@ -46,8 +45,8 @@ content:
         label: Menu Items
         type: object
         list: true
-        # default: []
-        # required: false
+        default: []
+        required: false
         fields:
           - name: label
             label: Label
@@ -66,17 +65,6 @@ content:
           - name: placeholder
             label: Placeholder Text
             type: string
-          - name: width
-            label: Search Bar Width (px)
-            type: number
-            default: 200
-          - name: background_color
-            label: Background Color (hex)
-            type: string
-          - name: text_color
-            label: Text Color (hex)
-            type: string
-         
 
       - name: auth_buttons
         label: Login/Signup Buttons
@@ -89,36 +77,14 @@ content:
             label: Login Button
             type: object
             fields:
-              -  name: text 
-                 label: Text
-                 type: string 
-                 default: "Login" 
-              -  name: link 
-                 label: Link 
-                 type: string 
-              - name: background_color
-                label: Background Color (hex)
-                type: string
-                
-              - name: text_color
-                label: Text Color (hex)
-                type: string
+              - { name: text, label: Text, type: string, default: "Login" }
+              - { name: link, label: Link, type: string }
           - name: signup_button
             label: Signup Button
             type: object
             fields:
               - { name: text, label: Text, type: string, default: "Sign Up" }
               - { name: link, label: Link, type: string }
-              
-              - name: background_color
-                label: Background Color (hex)
-                type: string
-                
-              - name: text_color
-                label: Text Color (hex)
-                type: string
-                
-
 
   # === DYNAMIC PAGES ===
   - name: pages
@@ -141,10 +107,11 @@ content:
         label: Page Sections
         type: block
         list: true
-        # default: []
-        # required: false
+        default: []
+        required: false
         blockKey: type
         blocks:
+          # Hero Section Block
           - name: hero
             label: Hero Section
             fields:
@@ -169,6 +136,28 @@ content:
               - name: button_link
                 label: Button Link
                 type: string
+
+          # NEW: Single Card Block
+          - name: card
+            label: Card
+            fields:
+              - name: enabled
+              - name: title
+                label: Card Title
+                type: string
+              - name: image
+                label: Card Image
+                type: image
+              - name: description
+                label: Card Description
+                type: text
+              - name: link
+                label: Card Link
+                type: string
+              - name: link_text
+                label: Link Text
+                type: string
+                default: "Learn More"
 
   # === FOOTER ===
   - name: footer
