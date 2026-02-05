@@ -115,7 +115,7 @@ content:
               - name: description
                 label: Description
                 type: text
-                list : true
+                
               - name: image
                 label: Image
                 type: image
