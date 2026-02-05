@@ -127,8 +127,8 @@ content:
         label: Page Sections
         type: block
         list: true
-        required: false
-        default: []      # This must be here for 'Add Item' to work
+        # required: false
+        # default: []      # This must be here for 'Add Item' to work
         blockKey: type
         blocks:
           - name: hero
@@ -137,7 +137,7 @@ content:
               - name: layout
                 label: Layout
                 type: select
-               options:
+                options:
                   values:
                     - label: Standard (Text Left, Image Right)
                       value: standard
