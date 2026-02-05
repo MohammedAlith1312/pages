@@ -45,7 +45,7 @@ content:
       - name: menu_items
         label: Menu Items
         type: object
-        list: true
+        
         # default: []
         # required: false
         fields:
