@@ -11,6 +11,21 @@
       "text_color": "#000000",
       "button_text": "Started",
       "button_link": "/started"
+    },
+    {
+      "type": "features",
+      "heading": "Services",
+      "cards": [
+        {
+          "link_text": "Learn More"
+        },
+        {
+          "link_text": "Learn More"
+        },
+        {
+          "link_text": "Learn More"
+        }
+      ]
     }
   ]
 }
