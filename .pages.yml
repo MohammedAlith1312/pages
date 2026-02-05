@@ -107,6 +107,8 @@ content:
         label: Page Sections
         type: block
         list: true
+        default: []
+        required: false
         blockKey: type
         blocks:
           # Hero Section Block
@@ -128,39 +130,54 @@ content:
               - name: text_color
                 label: Text Color (hex)
                 type: string
+              
+              # Button Toggle
+              - name: show_button
+                label: Show Button
+                type: boolean
+                default: false
               - name: button_text
                 label: Button Text
                 type: string
-              - name: enabled
-                label: button
-                type: boolean
               - name: button_link
                 label: Button Link
                 type: string
 
-          # NEW: Single Card Block
+          # Features Section with List of Cards
           - name: features
-            label: Feature Section
+            label: Features Section
             fields:
-               - name: card
-                 label: Card
-                 fields:
-                   - name: title
-                     label: Card Title
-                     type: string
-                   - name: image
-                     label: Card Image
-                     type: image
-                   - name: description
-                     label: Card Description
-                     type: text
-                   - name: link
-                     label: Card Link
-                     type: string
-                   - name: link_text
-                     label: Link Text
-                     type: string
-                     default: "Learn More"
+              - name: heading
+                label: Section Heading
+                type: string
+              - name: description
+                label: Section Description
+                type: text
+              
+              # List of Cards (Add Multiple)
+              - name: cards
+                label: Feature Cards
+                type: object
+                list: true
+                default: []
+                required: false
+                fields:
+                  - name: title
+                    label: Card Title
+                    type: string
+                  - name: image
+                    label: Card Image
+                    type: image
+                  - name: description
+                    label: Card Description
+                    type: text
+                  - name: link
+                    label: Card Link
+                    type: string
+                  - name: link_text
+                    label: Link Text
+                    type: string
+                    default: "Learn More"
 
   # === FOOTER ===
   - name: footer
