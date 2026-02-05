@@ -146,18 +146,7 @@ content:
               - name: heading
                 label: Heading Text
                 type: string
-              - name: heading_tag
-                label: Heading Level
-                type: select
-                default: h1
-                options:
-                  values:
-                    - { label: H1, value: h1 }
-                    - { label: H2, value: h2 }
-                    - { label: H3, value: h3 }
-                    - { label: H4, value: h4 }
-                    - { label: H5, value: h5 }
-                    - { label: H6, value: h6 }
+            
               - name: description
                 label: Description
                 type: text
