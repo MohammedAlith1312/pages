@@ -107,8 +107,6 @@ content:
         label: Page Sections
         type: block
         list: true
-        default: []
-        required: false
         blockKey: type
         blocks:
           # Hero Section Block
