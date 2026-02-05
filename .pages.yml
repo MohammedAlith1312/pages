@@ -15,11 +15,11 @@ content:
         type: select
         options:
           values:
-            - { label: Space Between, value: space-between }
-            - { label: Space Around, value: space-around }
-            - { label: Center, value: center }
-            - { label: Left Aligned, value: flex-start }
-            - { label: Right Aligned, value: flex-end }
+            - { label: "Space Between", value: "space-between" }
+            - { label: "Space Around", value: "space-around" }
+            - { label: "Center", value: "center" }
+            - { label: "Left Aligned", value: "flex-start" }
+            - { label: "Right Aligned", value: "flex-end" }
       
       - name: background_color
         label: Background Color (hex)
@@ -31,7 +31,7 @@ content:
         type: string
         default: "#000000"
 
-      # Logo Configuration
+      # Logo Block Configuration
       - name: logo
         label: Logo Configuration
         type: block
@@ -46,19 +46,21 @@ content:
               - name: width
                 label: Width
                 type: number
+                default: 150
           - name: text
             label: Text Logo
             fields:
               - name: text
                 label: Text
                 type: string
+                default: "My Site"
 
-      # === FIX: Added default: [] to satisfy the Required check ===
+      # Menu Items Fix
       - name: menu_items
         label: Menu Items
         type: object
         list: true
-        default: []      # This must be here for 'Add Item' to work
+        default: []      # Crucial: Fixes "Required" error
         required: false
         fields:
           - name: label
@@ -68,7 +70,6 @@ content:
             label: Link
             type: string
 
-      # Search Bar
       - name: search_bar
         label: Search Bar
         type: object
@@ -76,15 +77,16 @@ content:
           - name: enabled
             label: Show Search Bar
             type: boolean
+            default: false
           - name: placeholder
             label: Placeholder Text
             type: string
+            default: "Search..."
           - name: width
             label: Search Bar Width (px)
             type: number
             default: 200
 
-      # Auth Buttons
       - name: auth_buttons
         label: Login/Signup Buttons
         type: object
@@ -92,18 +94,19 @@ content:
           - name: enabled
             label: Show Auth Buttons
             type: boolean
+            default: false
           - name: login_button
             label: Login Button
             type: object
             fields:
               - { name: text, label: Text, type: string, default: "Login" }
-              - { name: link, label: Link, type: string }
+              - { name: link, label: Link, type: string, default: "/login" }
           - name: signup_button
             label: Signup Button
             type: object
             fields:
               - { name: text, label: Text, type: string, default: "Sign Up" }
-              - { name: link, label: Link, type: string }
+              - { name: link, label: Link, type: string, default: "/signup" }
 
   # === DYNAMIC PAGES ===
   - name: pages
@@ -111,8 +114,7 @@ content:
     path: lib/pages
     type: collection
     format: json
-    # MODIFIED: No date. Uses slug for path-like filenames.
-    filename: "{fields.slug}.json" 
+    filename: "{fields.slug}.json" # Uses slug for the filename
     fields:
       - name: title
         label: Page Title
@@ -123,12 +125,13 @@ content:
         type: string
         required: true
       
+      # Flexible Sections Fix
       - name: sections
         label: Page Sections
         type: block
         list: true
         required: false
-        default: []      # This must be here for 'Add Item' to work
+        default: []      # Crucial: Allows adding first item without error
         blockKey: type
         blocks:
           - name: hero
