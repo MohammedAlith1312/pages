@@ -1,17 +1,42 @@
 {
   "background_color": "#ffffff",
   "text_color": "#000000",
+  "logo": {
+    "type": "text",
+    "text": "Website"
+  },
+  "menu_items": [
+    {
+      "label": "Home",
+      "link": "/home"
+    },
+    {
+      "label": "About Us",
+      "link": "/about us"
+    },
+    {
+      "label": "Services",
+      "link": "/services"
+    },
+    {
+      "label": "Contact",
+      "link": "/contant"
+    }
+  ],
   "search_bar": {
-    "enabled": false,
-    "width": 200
+    "enabled": true,
+    "placeholder": "search",
+    "width": 10
   },
   "auth_buttons": {
-    "enabled": false,
+    "enabled": true,
     "login_button": {
-      "text": "Login"
+      "text": "Login",
+      "link": "/signin"
     },
     "signup_button": {
-      "text": "Sign Up"
+      "text": "Sign Up",
+      "link": "/signUp"
     }
   }
 }
