@@ -1,0 +1,272 @@
+media:
+  input: public/images
+  output: /images
+
+content:
+  # === GLOBAL NAVBAR ===
+  - name: navbar
+    label: Navigation Bar
+    path: lib/navbar.json
+    type: file
+    format: json
+    fields:
+      - name: layout
+        label: Navbar Layout
+        type: select
+        options:
+          values:
+            - label: Space Between
+              value: space-between
+            - label: Space Around
+              value: space-around
+            - label: Center
+              value: center
+            - label: Left Aligned
+              value: flex-start
+            - label: Right Aligned
+              value: flex-end
+      
+      - name: background_color
+        label: Background Color (hex)
+        type: string
+     
+      - name: text_color
+        label: Text Color (hex)
+        type: string
+     
+
+      # Logo Configuration
+      - name: logo
+        label: Logo Configuration
+        type: block
+        blockKey: type
+        blocks:
+          - name: image
+            label: Image Logo
+            fields:
+              - name: image
+                label: Logo Image
+                type: image
+              - name: width
+                label: Width
+                type: number
+          - name: text
+            label: Text Logo
+            fields:
+              - name: text
+                label: Text
+                type: string
+
+      # === FIX: Added default: [] to satisfy the Required check ===
+      - name: menu_items
+        label: Menu Items
+        type: object
+        list: true
+        
+        fields:
+          - name: label
+            label: Label
+            type: string
+          - name: link
+            label: Link
+            type: string
+# Search Bar
+      - name: search_bar
+        label: Search Bar
+        type: object
+        fields:
+          - name: enabled
+            label: Show Search Bar
+            type: boolean
+          
+          - name: placeholder
+            label: Placeholder Text
+            type: string
+          
+          - name: position
+            label: Search Bar Position
+            type: select
+            options:
+              values:
+                - label: Left
+                  value: left
+                - label: Center
+                  value: center
+                - label: Right
+                  value: right
+          
+          - name: width
+            label: Search Bar Width (px)
+            type: number
+          
+          - name: background_color
+            label: Background Color (hex)
+            type: string
+          
+          - name: text_color
+            label: Text Color (hex)
+            type: string
+          
+          - name: border_radius
+            label: Border Radius (px)
+            type: number
+      
+      # Auth Buttons
+      - name: auth_buttons
+        label: Login/Signup Buttons
+        type: object
+        fields:
+          - name: enabled
+            label: Show Auth Buttons
+            type: boolean
+          
+          - name: position
+            label: Buttons Position
+            type: select
+            options:
+              values:
+                - label: Left
+                  value: left
+                - label: Center
+                  value: center
+                - label: Right
+                  value: right
+          
+          - name: login_button
+            label: Login Button
+            type: object
+            fields:
+              - name: text
+                label: Button Text
+                type: string
+              
+              - name: link
+                label: Button Link
+                type: string
+              
+              - name: background_color
+                label: Background Color (hex)
+                type: string
+              
+              - name: text_color
+                label: Text Color (hex)
+                type: string
+              
+              - name: border_radius
+                label: Border Radius (px)
+                type: number
+          
+          - name: signup_button
+            label: Signup Button
+            type: object
+            fields:
+              - name: text
+                label: Button Text
+                type: string
+              
+              - name: link
+                label: Button Link
+                type: string
+              
+              - name: background_color
+                label: Background Color (hex)
+                type: string
+              
+              - name: text_color
+                label: Text Color (hex)
+                type: string
+              
+              - name: border_radius
+                label: Border Radius (px)
+                type: number
+
+  # === DYNAMIC PAGES ===
+  - name: pages
+    label: Pages
+    path: lib/pages
+    type: collection
+    format: json
+    filename: "{year}-{month}-{day}-{primary}.json" # Fixes the .md issue
+    fields:
+      - name: title
+        label: Page Title
+        type: string
+      - name: slug
+        label: URL Slug
+        type: string
+      
+      # === FIX: Added default: [] to satisfy the Required check ===
+      - name: sections
+        label: Page Sections
+        type: block
+        list: true
+        required: false
+        default: []
+        blockKey: type
+        blocks:
+          - name: hero
+            label: Hero Section
+            fields:
+              
+              - name: layout
+                label: Layout
+                type: select
+                options:
+                  values:
+                    - label: Standard (Text Left, Image Right)
+                      value: standard
+                    - label: Reversed (Text Right, Image Left)
+                      value: reversed
+                    - label: Centered (Text Center, Background Image)
+                      value: centered
+
+              
+              - name: heading
+                label: Heading Text
+                type: string
+              - name: heading_tag
+                label: Heading Level
+                type: select
+                default: h1
+                options:
+                  values:
+                    - { label: "Heading 1", value: "h1" }
+                    - { label: "Heading 2", value: "h2" }
+                    - { label: "Heading 3", value: "h3" }
+                    - { label: "Heading 4", value: "h4" }
+                    - { label: "Heading 5", value: "h5" }
+                    - { label: "Heading 6", value: "h6" }
+              - name: description
+                label: Description
+                type: text
+                    
+              - name: image
+                label: Image
+                type: image
+
+              - name: background_color
+                label: Background Color (hex)
+                type: string
+              
+              - name: text_color
+                label: Text Color (hex)
+                type: string
+
+              - name: button_text
+                label: Button Text
+                type: string
+              
+              - name: button_link
+                label: Button Link
+                type: string
+
+  # === FOOTER ===
+  - name: footer
+    label: Footer
+    path: lib/data/footer.json
+    type: file
+    format: json
+    fields:
+      - name: text
+        label: Footer Text
+        type: string
