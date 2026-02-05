@@ -132,6 +132,8 @@ content:
                 label: Button Text
                 type: string
               - name: enabled
+                label: button
+                type: boolean
               - name: button_link
                 label: Button Link
                 type: string
