@@ -135,11 +135,9 @@ content:
               - name: button_link
                 label: Button Link
                 type: string
-
-          # NEW: Single Card Block
-          - name: card
-            label: Card
-            fields:
+              - name: card
+                label: Card
+                fields:
               - name: enabled
               - name: title
                 label: Card Title
