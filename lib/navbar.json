@@ -1,0 +1,17 @@
+{
+  "background_color": "#ffffff",
+  "text_color": "#000000",
+  "search_bar": {
+    "enabled": false,
+    "width": 200
+  },
+  "auth_buttons": {
+    "enabled": false,
+    "login_button": {
+      "text": "Login"
+    },
+    "signup_button": {
+      "text": "Sign Up"
+    }
+  }
+}
