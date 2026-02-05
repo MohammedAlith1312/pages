@@ -36,7 +36,9 @@
     },
     "signup_button": {
       "text": "Sign Up",
-      "link": "/signUp"
+      "link": "/signUp",
+      "background_color": "#000000",
+      "text_color": "#ffffff"
     }
   }
 }
