@@ -144,9 +144,7 @@ content:
               - name: heading
                 label: Section Heading
                 type: string
-              - name: description
-                label: Section Description
-                type: text
+           
               
               # List of Cards (Add Multiple)
               - name: cards
