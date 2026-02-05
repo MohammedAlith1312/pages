@@ -153,8 +153,8 @@ content:
                 label: Feature Cards
                 type: object
                 list: true
-                default: []
-                required: false
+                # default: []
+                # required: false
                 fields:
                   - name: title
                     label: Card Title
