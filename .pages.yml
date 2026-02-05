@@ -46,8 +46,8 @@ content:
         label: Menu Items
         type: object
         list: true
-        default: []
-        required: false
+        # default: []
+        # required: false
         fields:
           - name: label
             label: Label
@@ -112,8 +112,8 @@ content:
         label: Page Sections
         type: block
         list: true
-        default: []
-        required: false
+        # default: []
+        # required: false
         blockKey: type
         blocks:
           - name: hero
