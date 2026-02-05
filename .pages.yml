@@ -33,6 +33,7 @@ content:
       - name: text_color
         label: Text Color (hex)
         type: string
+     
 
       # Logo Configuration
       - name: logo
@@ -56,12 +57,12 @@ content:
                 label: Text
                 type: string
 
-      # Menu Items
+      # === FIX: Added default: [] to satisfy the Required check ===
       - name: menu_items
         label: Menu Items
         type: object
         list: true
-        default: []
+        
         fields:
           - name: label
             label: Label
@@ -69,8 +70,7 @@ content:
           - name: link
             label: Link
             type: string
-
-      # Search Bar
+# Search Bar
       - name: search_bar
         label: Search Bar
         type: object
@@ -78,21 +78,39 @@ content:
           - name: enabled
             label: Show Search Bar
             type: boolean
+          
           - name: placeholder
             label: Placeholder Text
             type: string
+          
           - name: position
             label: Search Bar Position
             type: select
             options:
               values:
-                - { label: Left, value: left }
-                - { label: Center, value: center }
-                - { label: Right, value: right }
+                - label: Left
+                  value: left
+                - label: Center
+                  value: center
+                - label: Right
+                  value: right
+          
           - name: width
             label: Search Bar Width (px)
             type: number
-
+          
+          - name: background_color
+            label: Background Color (hex)
+            type: string
+          
+          - name: text_color
+            label: Text Color (hex)
+            type: string
+          
+          - name: border_radius
+            label: Border Radius (px)
+            type: number
+      
       # Auth Buttons
       - name: auth_buttons
         label: Login/Signup Buttons
@@ -101,14 +119,19 @@ content:
           - name: enabled
             label: Show Auth Buttons
             type: boolean
+          
           - name: position
             label: Buttons Position
             type: select
             options:
               values:
-                - { label: Left, value: left }
-                - { label: Center, value: center }
-                - { label: Right, value: right }
+                - label: Left
+                  value: left
+                - label: Center
+                  value: center
+                - label: Right
+                  value: right
+          
           - name: login_button
             label: Login Button
             type: object
@@ -116,9 +139,46 @@ content:
               - name: text
                 label: Button Text
                 type: string
+              
               - name: link
                 label: Button Link
                 type: string
+              
+              - name: background_color
+                label: Background Color (hex)
+                type: string
+              
+              - name: text_color
+                label: Text Color (hex)
+                type: string
+              
+              - name: border_radius
+                label: Border Radius (px)
+                type: number
+          
+          - name: signup_button
+            label: Signup Button
+            type: object
+            fields:
+              - name: text
+                label: Button Text
+                type: string
+              
+              - name: link
+                label: Button Link
+                type: string
+              
+              - name: background_color
+                label: Background Color (hex)
+                type: string
+              
+              - name: text_color
+                label: Text Color (hex)
+                type: string
+              
+              - name: border_radius
+                label: Border Radius (px)
+                type: number
 
   # === DYNAMIC PAGES ===
   - name: pages
@@ -126,18 +186,16 @@ content:
     path: lib/pages
     type: collection
     format: json
-    # MODIFIED: Date removed. Uses the 'slug' field value as the file name.
-    filename: "{fields.slug}.json" 
+    filename: "{year}-{month}-{day}-{primary}.json" # Fixes the .md issue
     fields:
       - name: title
         label: Page Title
         type: string
-        required: true
       - name: slug
         label: URL Slug
         type: string
-        required: true # Making this required ensures the filename is always valid
       
+      # === FIX: Added default: [] to satisfy the Required check ===
       - name: sections
         label: Page Sections
         type: block
@@ -149,26 +207,55 @@ content:
           - name: hero
             label: Hero Section
             fields:
+              
               - name: layout
                 label: Layout
                 type: select
                 options:
                   values:
-                    - { label: Standard, value: standard }
-                    - { label: Reversed, value: reversed }
-                    - { label: Centered, value: centered }
+                    - label: Standard (Text Left, Image Right)
+                      value: standard
+                    - label: Reversed (Text Right, Image Left)
+                      value: reversed
+                    - label: Centered (Text Center, Background Image)
+                      value: centered
+
+              
               - name: heading
                 label: Heading Text
                 type: string
+              - name: heading_tag
+                label: Heading Level
+                type: select
+                default: h1
+                options:
+                  values:
+                    - { label: "Heading 1", value: "h1" }
+                    - { label: "Heading 2", value: "h2" }
+                    - { label: "Heading 3", value: "h3" }
+                    - { label: "Heading 4", value: "h4" }
+                    - { label: "Heading 5", value: "h5" }
+                    - { label: "Heading 6", value: "h6" }
               - name: description
                 label: Description
                 type: text
+                    
               - name: image
                 label: Image
                 type: image
+
+              - name: background_color
+                label: Background Color (hex)
+                type: string
+              
+              - name: text_color
+                label: Text Color (hex)
+                type: string
+
               - name: button_text
                 label: Button Text
                 type: string
+              
               - name: button_link
                 label: Button Link
                 type: string
