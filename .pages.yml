@@ -186,7 +186,7 @@ content:
     path: lib/pages
     type: collection
     format: json
-    filename: "{year}-{month}-{day}-{primary}.json" # Fixes the .md issue
+    filename: "{fields.slug}.json" 
     fields:
       - name: title
         label: Page Title
