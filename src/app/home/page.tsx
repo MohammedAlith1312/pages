@@ -15,7 +15,6 @@ export default function HomePage() {
                         <Hero
                             key={index}
                             heading={section.heading}
-                            heading_tag={section.heading_tag}
                             description={section.description}
                             background_color={section.background_color}
                             text_color={section.text_color}

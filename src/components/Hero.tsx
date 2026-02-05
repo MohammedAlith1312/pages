@@ -3,7 +3,6 @@ import React from "react";
 
 interface HeroProps {
     heading: string;
-    heading_tag: any;
     description: string;
     background_color: string;
     text_color: string;
@@ -15,7 +14,6 @@ interface HeroProps {
 
 export default function Hero({
     heading,
-    heading_tag,
     description,
     background_color,
     text_color,
@@ -37,11 +35,9 @@ export default function Hero({
                         } items-center gap-12`}
                 >
                     <div className="flex-1 text-center md:text-left">
-                        {React.createElement(
-                            heading_tag,
-                            { className: "font-bold mb-6" },
-                            heading
-                        )}
+                        <h1 className="font-bold mb-6 text-4xl md:text-5xl lg:text-6xl">
+                            {heading}
+                        </h1>
                         <p className="text-lg md:text-xl opacity-90 mb-10 leading-relaxed max-w-2xl mx-auto md:mx-0">
                             {description}
                         </p>
