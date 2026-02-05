@@ -12,7 +12,7 @@ content:
     fields:
       - name: background_color
         label: Background Color (hex)
-        type: string
+        type: rich-text
         default: "#ffffff"
      
       - name: text_color
