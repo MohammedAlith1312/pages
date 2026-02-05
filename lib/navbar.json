@@ -26,7 +26,9 @@
   "search_bar": {
     "enabled": true,
     "placeholder": "search",
-    "width": 10
+    "width": 10,
+    "background_color": "#ffffff",
+    "text_color": "#000000"
   },
   "auth_buttons": {
     "enabled": true,
