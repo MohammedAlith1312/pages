@@ -44,7 +44,7 @@ export default function Hero({
                         <div>
                             <a
                                 href={button_link}
-                                className="inline-block px-8 py-4 rounded-lg text-lg font-semibold transition-all hover:opacity-90 shadow-md"
+                                className="inline-block px-4 py-2 rounded-lg text-lg font-semibold transition-all hover:opacity-90 shadow-md"
                                 style={{
                                     backgroundColor: text_color,
                                     color: background_color,

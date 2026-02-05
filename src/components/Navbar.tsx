@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { FiSearch } from "react-icons/fi";
 import navbarData from "../../lib/navbar.json";
 
 export default function Navbar() {
@@ -54,15 +55,19 @@ export default function Navbar() {
                 <div className="flex items-center space-x-4">
                     {search_bar.enabled && (
                         <div className="relative hidden sm:block">
+                            <FiSearch
+                                className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none"
+                                size={18}
+                                style={{ color: (search_bar as any).text_color || "#666" }}
+                            />
                             <input
                                 type="text"
                                 placeholder={search_bar.placeholder}
-                                className="px-4 py-2 text-sm border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+                                className="pl-10 pr-4 py-2 text-sm border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
                                 style={{
                                     width: `${search_bar.width}rem`,
-                                    backgroundColor: search_bar.background_color,
-                                    color: search_bar.text_color,
-                                    borderRadius: `${search_bar.border_radius}px`,
+                                    backgroundColor: (search_bar as any).background_color,
+                                    color: (search_bar as any).text_color,
                                 }}
                             />
                         </div>
@@ -76,7 +81,8 @@ export default function Navbar() {
                                 style={{
                                     backgroundColor: auth_buttons.login_button.background_color,
                                     color: auth_buttons.login_button.text_color,
-                                    borderRadius: `${auth_buttons.login_button.border_radius}px`,
+                                    borderRadius: "10px"
+
                                 }}
                             >
                                 {auth_buttons.login_button.text}
@@ -87,7 +93,8 @@ export default function Navbar() {
                                 style={{
                                     backgroundColor: auth_buttons.signup_button.background_color,
                                     color: auth_buttons.signup_button.text_color,
-                                    borderRadius: `${auth_buttons.signup_button.border_radius}px`,
+                                    borderRadius: "10px"
+
                                 }}
                             >
                                 {auth_buttons.signup_button.text}

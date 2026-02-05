@@ -1,10 +1,16 @@
 
 
-import Home from "./home/page";
+import { getPageData } from "@/lib/api";
+import PageBuilder from "@/components/PageBuilder";
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const homeData = await getPageData("home");
+  const servicesData = await getPageData("services");
+
   return (
-    <Home />
-
+    <div>
+      {homeData ? <PageBuilder sections={homeData.sections} /> : null}
+      {servicesData ? <PageBuilder sections={servicesData.sections} /> : null}
+    </div>
   );
 }

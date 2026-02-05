@@ -1,15 +1,16 @@
-import homeData from "../../../lib/pages/home.json";
-import Hero from "@/components/Hero";
-import { Metadata } from "next";
+import Hero from "./Hero";
+import Features from "./Features";
 
-export const metadata: Metadata = {
-    title: homeData.title,
-};
+interface PageBuilderProps {
+    sections: any[];
+}
 
-export default function HomePage() {
+export default function PageBuilder({ sections }: PageBuilderProps) {
+    if (!sections) return null;
+
     return (
-        <main>
-            {homeData.sections.map((section: any, index: number) => {
+        <>
+            {sections.map((section: any, index: number) => {
                 if (section.type === "hero") {
                     return (
                         <Hero
@@ -25,8 +26,17 @@ export default function HomePage() {
                         />
                     );
                 }
+                if (section.type === "features") {
+                    return (
+                        <Features
+                            key={index}
+                            heading={section.heading}
+                            cards={section.cards}
+                        />
+                    );
+                }
                 return null;
             })}
-        </main>
+        </>
     );
 }
