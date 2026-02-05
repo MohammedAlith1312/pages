@@ -70,6 +70,13 @@ content:
             label: Search Bar Width (px)
             type: number
             default: 200
+          - name: background_color
+            label: Background Color (hex)
+            type: string
+          - name: text_color
+            label: Text Color (hex)
+            type: string
+         
 
       - name: auth_buttons
         label: Login/Signup Buttons
@@ -82,8 +89,13 @@ content:
             label: Login Button
             type: object
             fields:
-              - { name: text, label: Text, type: string, default: "Login" }
-              - { name: link, label: Link, type: string }
+              -  name: text 
+                 label: Text
+                 type: string 
+                 default: "Login" 
+              -  name: link 
+                 label: Link 
+                 type: string 
               - name: background_color
                 label: Background Color (hex)
                 type: string
