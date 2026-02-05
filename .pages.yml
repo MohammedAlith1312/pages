@@ -125,7 +125,7 @@ content:
       
       - name: sections
         label: Page Sections
-        type: blocks
+        type: block
         list: true
         required: false
         default: []      # This must be here for 'Add Item' to work
