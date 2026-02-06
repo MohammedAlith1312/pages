@@ -182,3 +182,17 @@ content:
         label: Footer Text
         type: string
         default: "© 2026 Your Brand"
+
+
+  # === CI/CD SETTINGS ===
+  - name: deployment_settings
+    label: "🚀 Build & Deploy Settings"
+    type: file
+    path: ".github/workflows/production-deploy.yml"
+    fields:
+      - name: workflow_code
+        label: Workflow YAML
+        type: code
+        options:           # <--- Move settings here
+         format: yaml      # <--- Use 'format' instead of 'language'
+        description: "Edit the GitHub Action code here to change how your site builds."
