@@ -53,54 +53,50 @@ export default function Navbar() {
 
                 {/* Right Section: Search & Auth */}
                 <div className="flex items-center space-x-4">
-                    {search_bar.enabled && (
-                        <div className="relative hidden sm:block">
-                            <FiSearch
-                                className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none"
-                                size={18}
-                                style={{ color: (search_bar as any).text_color || "#666" }}
-                            />
-                            <input
-                                type="text"
-                                placeholder={search_bar.placeholder}
-                                className="pl-10 pr-4 py-2 text-sm border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
-                                style={{
-                                    width: `${search_bar.width}rem`,
-                                    backgroundColor: (search_bar as any).background_color,
-                                    color: (search_bar as any).text_color,
-                                }}
-                            />
-                        </div>
-                    )}
+                    <div className="relative hidden sm:block">
+                        <FiSearch
+                            className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none"
+                            size={18}
+                            style={{ color: (search_bar as any).text_color || "#666" }}
+                        />
+                        <input
+                            type="text"
+                            placeholder={search_bar.placeholder}
+                            className="pl-10 pr-4 py-2 text-sm border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+                            style={{
+                                width: `${(search_bar as any).width || 12}rem`,
+                                backgroundColor: (search_bar as any).background_color,
+                                color: (search_bar as any).text_color,
+                            }}
+                        />
+                    </div>
 
-                    {auth_buttons.enabled && (
-                        <div className="flex items-center space-x-3 text-sm font-medium">
-                            <Link
-                                href={auth_buttons.login_button.link}
-                                className="px-4 py-2 rounded-full transition-all hover:opacity-90"
-                                style={{
-                                    backgroundColor: auth_buttons.login_button.background_color,
-                                    color: auth_buttons.login_button.text_color,
-                                    borderRadius: "10px"
+                    <div className="flex items-center space-x-3 text-sm font-medium">
+                        <Link
+                            href={auth_buttons.login_button.link}
+                            className="px-4 py-2 rounded-full transition-all hover:opacity-90"
+                            style={{
+                                backgroundColor: (auth_buttons.login_button as any).background_color,
+                                color: (auth_buttons.login_button as any).text_color,
+                                borderRadius: "10px"
 
-                                }}
-                            >
-                                {auth_buttons.login_button.text}
-                            </Link>
-                            <Link
-                                href={auth_buttons.signup_button.link}
-                                className="px-4 py-2 rounded-full transition-all hover:opacity-90"
-                                style={{
-                                    backgroundColor: auth_buttons.signup_button.background_color,
-                                    color: auth_buttons.signup_button.text_color,
-                                    borderRadius: "10px"
+                            }}
+                        >
+                            {auth_buttons.login_button.text}
+                        </Link>
+                        <Link
+                            href={auth_buttons.signup_button.link}
+                            className="px-4 py-2 rounded-full transition-all hover:opacity-90"
+                            style={{
+                                backgroundColor: (auth_buttons.signup_button as any).background_color,
+                                color: (auth_buttons.signup_button as any).text_color,
+                                borderRadius: "10px"
 
-                                }}
-                            >
-                                {auth_buttons.signup_button.text}
-                            </Link>
-                        </div>
-                    )}
+                            }}
+                        >
+                            {auth_buttons.signup_button.text}
+                        </Link>
+                    </div>
                 </div>
             </div>
         </nav>
