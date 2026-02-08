@@ -10,7 +10,7 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-    const slugs = getPageSlugs();
+    const slugs = await getPageSlugs();
     return slugs.map((slug) => ({
         slug: slug,
     }));

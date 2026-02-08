@@ -1,0 +1,19 @@
+Starting DB check...
+Connecting to Database...
+Columns found: 16
+- id (integer)
+- size (integer)
+- commit_timestamp (timestamp without time zone)
+- last_updated (timestamp without time zone)
+- branch (text)
+- parent_path (text)
+- name (text)
+- path (text)
+- type (text)
+- content (text)
+- sha (text)
+- commit_sha (text)
+- download_url (text)
+- context (text)
+- owner (text)
+- repo (text)
