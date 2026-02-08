@@ -197,7 +197,7 @@ content:
         fields:
           - name: issue1
             type: string
-            default: 1
+            default: 2
 
   # === CI/CD SETTINGS ===
   - name: deployment_settings
