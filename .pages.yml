@@ -192,7 +192,7 @@ content:
     fields:
       - name: workflow_code
         label: Workflow YAML
-        type: code
+        type: rich-text
         list: true
         options:           # <--- Move settings here
          format: yaml      # <--- Use 'format' instead of 'language'
