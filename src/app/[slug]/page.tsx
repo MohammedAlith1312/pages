@@ -4,7 +4,7 @@ import { Metadata } from "next";
 
 // Allow new pages to be generated on demand (On-Demand ISR)
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 export const dynamicParams = true;
 
 interface Props {
