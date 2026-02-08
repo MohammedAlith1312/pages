@@ -11,8 +11,8 @@
       "link": "/home"
     },
     {
-      "label": "About Us",
-      "link": "/about us"
+      "label": "AboutUs",
+      "link": "/aboutus"
     },
     {
       "label": "Services",
@@ -24,25 +24,16 @@
     }
   ],
   "search_bar": {
-    "enabled": true,
-    "placeholder": "search",
-    "width": 10,
-    "background_color": "#ffffff",
-    "text_color": "#000000"
+    "placeholder": "search"
   },
   "auth_buttons": {
-    "enabled": true,
     "login_button": {
       "text": "Login",
-      "link": "/signin",
-      "background_color": "#000000",
-      "text_color": "#ffffff"
+      "link": "/signin"
     },
     "signup_button": {
-      "text": "Sign Up",
-      "link": "/signUp",
-      "background_color": "#000000",
-      "text_color": "#ffffff"
+      "text": "SignUp",
+      "link": "/signUp"
     }
   }
 }
