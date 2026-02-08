@@ -58,17 +58,24 @@ export async function getPageData(slug: string) {
                 WHERE path = ${fullPath}
                 LIMIT 1
             `;
-
             if (results && results.length > 0) {
-                const content = (results[0] as any).content;
-                const dbData =
-                    typeof content === 'string'
-                        ? JSON.parse(content)
-                        : content;
+                let content = (results[0] as any).content;
 
-                console.log(`[API] CMS override from DB: ${cleanSlug}`);
-                return dbData; // DB override
+                let dbData = content;
+
+                // 🔥 double parse fix
+                if (typeof dbData === 'string') {
+                    dbData = JSON.parse(dbData);
+                }
+
+                if (typeof dbData === 'string') {
+                    dbData = JSON.parse(dbData);
+                }
+
+                console.log("[API] CMS override from DB:", cleanSlug);
+                return dbData;
             }
+
         } catch (err) {
             console.error("[API] DB error, fallback JSON", err);
         }
