@@ -183,25 +183,25 @@ content:
         type: string
         default: "© 2026 Your Brand"
 
-  # === GITHUB ISSUES ===
-  - name: support-tickets
-    label: GitHub Issues
-    path: lib/data/issues.json
-    type: issues
-    format: json
-    fields:
-      - name: title
-        label: Issue Title
-        type: string
-      - name: body
-        label: Description
-        type: rich-text
-      - name: labels
-        label: Labels
-        type: object
-        fields:
-          - name: issue1
-            type: string
+  # # === GITHUB ISSUES ===
+  # - name: support-tickets
+  #   label: GitHub Issues
+  #   path: lib/data/issues.json
+  #   type: issues
+  #   format: json
+  #   fields:
+  #     - name: title
+  #       label: Issue Title
+  #       type: string
+  #     - name: body
+  #       label: Description
+  #       type: rich-text
+  #     - name: labels
+  #       label: Labels
+  #       type: object
+  #       fields:
+  #         - name: issue1
+  #           type: string
 
 
   # === CI/CD SETTINGS ===
