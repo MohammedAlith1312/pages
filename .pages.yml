@@ -186,7 +186,9 @@ content:
   # === GITHUB ISSUES ===
       - name: support-tickets
         label: GitHub Issues
-        type: object   
+        path: lib/data/issues.json
+        type: file 
+        format: json
         fields:
       - name: title
         label: Issue Title
