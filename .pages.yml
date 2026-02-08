@@ -193,6 +193,7 @@ content:
       - name: workflow_code
         label: Workflow YAML
         type: code
+        list: true
         options:           # <--- Move settings here
          format: yaml      # <--- Use 'format' instead of 'language'
         description: "Edit the GitHub Action code here to change how your site builds."
