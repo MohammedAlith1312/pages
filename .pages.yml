@@ -119,7 +119,6 @@ content:
               - name: image
                 label: Image
                 type: image
-                   # <--- This enables multiple uploads
               
               - name: background_color
                 label: Background Color (hex)
@@ -129,7 +128,6 @@ content:
                 type: string
               
               # Button Toggle
-              
               - name: button_text
                 label: Button Text
                 type: string
@@ -145,14 +143,11 @@ content:
                 label: Section Heading
                 type: string
            
-              
               # List of Cards (Add Multiple)
               - name: cards
                 label: Feature Cards
                 type: object
                 list: true
-                # default: []
-                # required: false
                 fields:
                   - name: title
                     label: Card Title
@@ -184,12 +179,12 @@ content:
         default: "© 2026 Your Brand"
 
   # === GITHUB ISSUES ===
-      - name: support-tickets
-        label: GitHub Issues
-        path: lib/data/issues.json
-        type: issues
-        format: json
-        fields:
+  - name: support-tickets
+    label: GitHub Issues
+    path: lib/data/issues.json
+    type: issues
+    format: json
+    fields:
       - name: title
         label: Issue Title
         type: string
@@ -200,10 +195,8 @@ content:
         label: Labels
         type: object
         fields:
-        - name: issue1
-          type: string
-
-
+          - name: issue1
+            type: string
 
   # === CI/CD SETTINGS ===
   - name: deployment_settings
@@ -215,6 +208,6 @@ content:
         label: Workflow YAML
         type: rich-text
         list: true
-        options:           # <--- Move settings here
-         format: yaml      # <--- Use 'format' instead of 'language'
+        options:
+          format: yaml
         description: "Edit the GitHub Action code here to change how your site builds."
