@@ -183,6 +183,25 @@ content:
         type: string
         default: "© 2026 Your Brand"
 
+  # === GITHUB ISSUES ===
+      - name: support-tickets
+        label: GitHub Issues
+        type: object   
+        fields:
+      - name: title
+        label: Issue Title
+        type: string
+      - name: body
+        label: Description
+        type: rich-text
+      - name: labels
+        label: Labels
+        type: object
+        fields:
+        - name: issue1
+          type: string
+
+
 
   # === CI/CD SETTINGS ===
   - name: deployment_settings
