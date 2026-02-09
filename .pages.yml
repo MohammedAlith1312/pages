@@ -183,8 +183,7 @@ content:
         type: string
         default: "© 2026 Your Brand"
 
-  # === GITHUB ISSUES ===
-  - 
+  
 
 
   # === CI/CD SETTINGS ===
