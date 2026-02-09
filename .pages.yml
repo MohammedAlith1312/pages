@@ -114,7 +114,7 @@ content:
                 type: string
               - name: description
                 label: Description
-                type: text
+                type: rich-text
                 
               - name: image
                 label: Image
