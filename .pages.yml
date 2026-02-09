@@ -162,7 +162,7 @@ content:
                     type: image
                   - name: description
                     label: Card Description
-                    type: text
+                    type: rich-text
                   - name: link
                     label: Card Link
                     type: string
