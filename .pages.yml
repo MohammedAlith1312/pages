@@ -171,22 +171,6 @@ content:
                     type: string
                     default: "Learn More"
 
-
-                    
-          # Page Reference (The solution for Services/Contact on Home)
-                    # 3. Page Reference (Saves the FULL JSON data)
-                  - name: page_reference
-                    label: 🔗 Import Section from Page
-                    fields:
-                      - name: imported_section
-                        type: reference
-                        options:
-                          collection: pages
-                          search: "fields.title"
-                          label: "Import from: {fields.title}"
-                          # This grabs the FIRST section of the selected page as an object
-                          value: "{sections[0]}" 
-
   # === FOOTER ===
   - name: footer
     label: Footer
