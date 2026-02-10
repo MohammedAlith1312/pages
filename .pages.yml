@@ -171,6 +171,21 @@ content:
                     type: string
                     default: "Learn More"
 
+
+                    
+          # Page Reference (The solution for Services/Contact on Home)
+          - name: page_reference
+            label: 🔗 Link Existing Page
+            fields:
+              - name: selected_page
+                label: Page to Show
+                type: reference
+                options:
+                  collection: pages
+                  search: "fields.title"
+                  label: "{fields.title}"
+                  value: "{fields.slug}"
+
   # === FOOTER ===
   - name: footer
     label: Footer
