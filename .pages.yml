@@ -185,16 +185,4 @@ content:
 
   
 
-
-  # === CI/CD SETTINGS ===
-  - name: deployment_settings
-    label: "🚀 Build & Deploy Settings"
-    type: file
-    path: ".github/workflows/production-deploy.yml"
-    fields:
-      - name: workflow_code
-        label: Workflow YAML
-        type: rich-text
-        list: true
-        options:           # <--- Move settings here
-         format: yaml      # <--- Use 
+   
