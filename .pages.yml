@@ -174,17 +174,21 @@ content:
 
                     
           # Page Reference (The solution for Services/Contact on Home)
+                    # 3. Page Reference (Saves the FULL JSON data)
           - name: page_reference
-            label: 🔗 Link Existing Page
+            label: 📦 Embed Entire Page Data
             fields:
-              - name: selected_page
-                label: Page to Show
+              - name: embedded_data
+                label: Select Page to Embed
                 type: reference
                 options:
                   collection: pages
                   search: "fields.title"
                   label: "{fields.title}"
-                  value: "{fields.slug}"
+                  # === THE IMPORTANT PART ===
+                  # Leaving 'value' empty or using "." typically tells 
+                  # the CMS to save the entire JSON object of the entry.
+                  value: "." 
 
   # === FOOTER ===
   - name: footer
