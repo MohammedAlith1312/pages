@@ -1,0 +1,272 @@
+================================================================================
+    UNIVERSAL ELEMENT SELECTION & GITHUB ISSUE CREATION
+    SYSTEM ARCHITECTURE & DATA FLOW
+================================================================================
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                          APPLICATION LAYER                                      │
+│  ┌──────────────────────┐          ┌────────────────────────────────────┐      │
+│  │   layout.tsx         │          │  Pages (home, services, contact)   │      │
+│  │   (Root Layout)      │──wraps──▶│  User-facing content               │      │
+│  └──────────────────────┘          └────────────────────────────────────┘      │
+└─────────────────────────────────────────────────────────────────────────────────┘
+                │                                      │
+                │                                      │ User selects element
+                ▼                                      ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                      ISSUE REPORTING SYSTEM                                     │
+│                                                                                 │
+│  ┌────────────────────────────────────────────────────────────────────┐        │
+│  │  IssueReportingProvider (Global State & Event Listeners)           │        │
+│  │  • Listens for element clicks/selections                           │        │
+│  │  • Captures element data (type, content, CSS selector)             │        │
+│  │  • Manages selection mode state                                    │        │
+│  └────────────────────────────────────────────────────────────────────┘        │
+│                │                                                                │
+│                │ provides                                                       │
+│                ▼                                                                │
+│  ┌────────────────────────────────────────────────────────────────────┐        │
+│  │  IssueReportingContext (State Management)                          │        │
+│  │  • isSelectionMode: boolean                                        │        │
+│  │  • selectedElement: SelectedElementData | null                     │        │
+│  │  • toggleSelectionMode(), openIssuePopup(), closeIssuePopup()     │        │
+│  └────────────────────────────────────────────────────────────────────┘        │
+│                │                                │                               │
+│                │ renders                        │ opens with data               │
+│                ▼                                ▼                               │
+│  ┌──────────────────────────┐    ┌─────────────────────────────────┐          │
+│  │ SelectionModeToggle      │    │  IssuePopup (Modal Dialog)      │          │
+│  │ (Floating Action Button) │    │  • Backdrop overlay             │          │
+│  │ • Toggle selection mode  │    │  • Close handlers               │          │
+│  │ • Visual indicator       │    │  • Success/error notifications  │          │
+│  └──────────────────────────┘    └─────────────────────────────────┘          │
+│                                              │ contains                         │
+│                                              ▼                                  │
+│                                   ┌─────────────────────────────────┐          │
+│                                   │  TextBlock (Form Component)     │          │
+│                                   │  • Display selected element     │          │
+│                                   │  • Input: Issue title           │          │
+│                                   │  • Input: Description           │          │
+│                                   │  • Submit button                │          │
+│                                   └─────────────────────────────────┘          │
+└─────────────────────────────────────────────────────────────────────────────────┘
+                                              │
+                                              │ submits form
+                                              ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                              API LAYER                                          │
+│                                                                                 │
+│  ┌────────────────────────────────────────────────────────────────────┐        │
+│  │  api.ts - createIssueFromSelection()                               │        │
+│  │  • Type-safe API calls                                             │        │
+│  │  • Error handling                                                  │        │
+│  └────────────────────────────────────────────────────────────────────┘        │
+│                │                                                                │
+│                │ POST request                                                   │
+│                ▼                                                                │
+│  ┌────────────────────────────────────────────────────────────────────┐        │
+│  │  /api/issues/create (Next.js API Route)                            │        │
+│  │  • Receives issue data from frontend                               │        │
+│  │  • Authenticates with GitHub                                       │        │
+│  │  • Formats issue body with metadata                                │        │
+│  └────────────────────────────────────────────────────────────────────┘        │
+│                │                                                                │
+│                │ authenticates & creates                                        │
+│                ▼                                                                │
+│  ┌────────────────────────────────────────────────────────────────────┐        │
+│  │  Octokit Client (GitHub API)                                       │        │
+│  │  • GitHub REST API wrapper                                         │        │
+│  │  • Issue creation methods                                          │        │
+│  └────────────────────────────────────────────────────────────────────┘        │
+└─────────────────────────────────────────────────────────────────────────────────┘
+                │                                │
+                │ creates issue                  │ returns issue URL
+                ▼                                │
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                         EXTERNAL SERVICES                                       │
+│  ┌────────────────────────────────────────────────────────────────────┐        │
+│  │  GitHub Repository (Issues API)                                    │        │
+│  │  • MohammedAlith1312/pages                                         │        │
+│  │  • Issue creation endpoint                                         │        │
+│  └────────────────────────────────────────────────────────────────────┘        │
+└─────────────────────────────────────────────────────────────────────────────────┘
+                                              │
+                                              │ response flows back
+                                              ▼
+                                    (Back to API Layer → UI)
+
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                         CONFIGURATION & DEPENDENCIES                            │
+│                                                                                 │
+│  ┌──────────────────────────┐  ┌──────────────────────┐  ┌─────────────────┐  │
+│  │ issue-reporting.types.ts │  │ issue-reporting.css  │  │     .env        │  │
+│  │ • SelectedElementData    │  │ • Selection mode     │  │ • GITHUB_TOKEN  │  │
+│  │ • IssueFormData          │  │ • Popup animations   │  │ • REPO_OWNER    │  │
+│  │ • CreateIssueResponse    │  │ • Component styles   │  │ • REPO_NAME     │  │
+│  └──────────────────────────┘  └──────────────────────┘  └─────────────────┘  │
+│           │                              │                        │             │
+│           └──────────(provides types to all components)───────────┘             │
+│                                          │                                      │
+│                         (provides styles & credentials)                         │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+
+================================================================================
+                            DATA FLOW SEQUENCE
+================================================================================
+
+1. USER ACTION: User clicks "Report Issue" toggle button
+   └─▶ SelectionModeToggle → IssueReportingContext.toggleSelectionMode()
+
+2. SELECTION MODE ACTIVATED
+   └─▶ IssueReportingProvider adds event listeners to all elements
+   └─▶ Visual feedback: elements highlight on hover
+
+3. USER SELECTS ELEMENT: User clicks on any element (text, button, image, div)
+   └─▶ IssueReportingProvider captures:
+       • Element type (button, img, div, etc.)
+       • Text content or alt text
+       • CSS selector path
+       • Page URL
+       • Timestamp
+       • Position
+
+4. POPUP OPENS
+   └─▶ IssueReportingContext.openIssuePopup(elementData)
+   └─▶ IssuePopup component renders with modal overlay
+   └─▶ TextBlock component displays:
+       • Selected element info (read-only)
+       • Input field: Issue title
+       • Textarea: Issue description
+
+5. USER FILLS FORM & SUBMITS
+   └─▶ TextBlock validates inputs
+   └─▶ Calls onSubmit handler
+
+6. API CALL
+   └─▶ api.ts → createIssueFromSelection(formData)
+   └─▶ POST request to /api/issues/create
+   └─▶ Request body:
+       {
+         title: "User's title",
+         description: "User's description",
+         elementType: "button",
+         elementContent: "Contact Us",
+         pageUrl: "https://site.com/services",
+         cssSelector: ".cta-button"
+       }
+
+7. GITHUB ISSUE CREATION
+   └─▶ API Route authenticates with GitHub using .env credentials
+   └─▶ Octokit client creates issue with formatted body:
+       
+       **Page**: https://site.com/services
+       **Element Type**: Button
+       **Selected Content**: "Contact Us"
+       **CSS Selector**: .cta-button
+       
+       **User Description**:
+       [User's input here]
+       
+       **Context**:
+       - Timestamp: 2026-02-11T19:47:25+05:30
+
+8. RESPONSE HANDLING
+   └─▶ GitHub returns issue URL and number
+   └─▶ API Route sends response back to frontend
+   └─▶ Success: Display toast with issue URL
+   └─▶ Error: Display error message
+
+9. CLEANUP
+   └─▶ IssuePopup closes
+   └─▶ Selection mode remains active for next selection
+   └─▶ User can toggle off when done
+
+
+================================================================================
+                         COMPONENT RELATIONSHIPS
+================================================================================
+
+layout.tsx
+  └─▶ IssueReportingProvider (wraps entire app)
+       ├─▶ Provides: IssueReportingContext
+       ├─▶ Renders: All pages (home, services, contact)
+       ├─▶ Renders: SelectionModeToggle (floating button)
+       └─▶ Conditionally renders: IssuePopup
+            └─▶ Contains: TextBlock
+                 └─▶ Calls: api.ts → createIssueFromSelection()
+                      └─▶ Calls: /api/issues/create
+                           └─▶ Uses: Octokit
+                                └─▶ Calls: GitHub API
+
+
+================================================================================
+                            FILE STRUCTURE
+================================================================================
+
+d:/cms/pages/
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx                    [MODIFY] - Wrap with provider
+│   │   └── api/
+│   │       └── issues/
+│   │           └── create/
+│   │               └── route.ts          [NEW] - API endpoint
+│   │
+│   ├── components/
+│   │   └── issue-reporting/
+│   │       ├── TextBlock.tsx             [NEW] - Form component
+│   │       ├── IssuePopup.tsx            [NEW] - Modal dialog
+│   │       └── SelectionModeToggle.tsx   [NEW] - Toggle button
+│   │
+│   ├── contexts/
+│   │   └── IssueReportingContext.tsx     [NEW] - Context definition
+│   │
+│   ├── providers/
+│   │   └── IssueReportingProvider.tsx    [NEW] - Provider component
+│   │
+│   ├── lib/
+│   │   └── api.ts                        [MODIFY] - Add helper function
+│   │
+│   ├── types/
+│   │   └── issue-reporting.types.ts      [NEW] - Type definitions
+│   │
+│   └── styles/
+│       └── issue-reporting.css           [NEW] - Styles
+│
+└── .env                                   [MODIFY] - Add GitHub credentials
+
+
+================================================================================
+                         IMPLEMENTATION ORDER
+================================================================================
+
+Phase 1: Foundation (10 min)
+  1. Create src/types/issue-reporting.types.ts
+  2. Update .env with GITHUB_TOKEN, GITHUB_REPO_OWNER, GITHUB_REPO_NAME
+
+Phase 2: Core Infrastructure (20 min)
+  3. Create src/contexts/IssueReportingContext.tsx
+  4. Create src/providers/IssueReportingProvider.tsx
+
+Phase 3: UI Components (40 min)
+  5. Create src/components/issue-reporting/TextBlock.tsx
+  6. Create src/components/issue-reporting/IssuePopup.tsx
+  7. Create src/components/issue-reporting/SelectionModeToggle.tsx
+
+Phase 4: API Integration (30 min)
+  8. Create src/app/api/issues/create/route.ts
+  9. Update src/lib/api.ts
+
+Phase 5: Styling & Integration (20 min)
+  10. Create src/styles/issue-reporting.css
+  11. Update src/app/layout.tsx
+
+Phase 6: Testing (30 min)
+  12. Test all functionality
+
+
+================================================================================
+                              END OF DIAGRAM
+================================================================================

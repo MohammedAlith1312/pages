@@ -44,7 +44,8 @@ export default function Navbar() {
                         <Link
                             key={index}
                             href={item.link}
-                            className="text-sm font-medium hover:opacity-70 transition-opacity"
+                            className="text-sm font-medium hover:opacity-70 transition-opacity "
+                            target="_blank"
                         >
                             {item.label}
                         </Link>

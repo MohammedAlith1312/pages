@@ -1,42 +1,35 @@
-import Hero from "./Hero";
-import Features from "./Features";
+
+import React from 'react';
+import Hero from './Hero';
+import Features from './Features';
+
+interface Section {
+    type: string;
+    [key: string]: any;
+}
 
 interface PageBuilderProps {
-    sections: any[];
+    sections: Section[];
 }
 
 export default function PageBuilder({ sections }: PageBuilderProps) {
     if (!sections) return null;
 
     return (
-        <>
-            {sections.map((section: any, index: number) => {
-                if (section.type === "hero") {
-                    return (
-                        <Hero
-                            key={index}
-                            heading={section.heading}
-                            description={section.description}
-                            background_color={section.background_color}
-                            text_color={section.text_color}
-                            button_text={section.button_text}
-                            button_link={section.button_link}
-                            layout={section.layout}
-                            image={section.image}
-                        />
-                    );
+        <div className="flex flex-col">
+            {sections.map((section, index) => {
+                switch (section.type) {
+                    case 'hero':
+                        // @ts-ignore - Spreading props is safe here as JSON matches component props
+                        return <Hero key={index} {...section} />;
+                    case 'features':
+                        // @ts-ignore - Spreading props is safe here as JSON matches component props
+                        return <Features key={index} {...section} />;
+                    default:
+                        console.warn(`Unknown section type: ${section.type}`);
+                        return null;
                 }
-                if (section.type === "features") {
-                    return (
-                        <Features
-                            key={index}
-                            heading={section.heading}
-                            cards={section.cards}
-                        />
-                    );
-                }
-                return null;
             })}
-        </>
+        </div>
     );
 }

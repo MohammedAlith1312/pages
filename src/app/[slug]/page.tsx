@@ -18,20 +18,20 @@ export async function generateStaticParams() {
     }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { slug } = await params;
-    const pageData = await getPageData(slug);
+// export async function generateMetadata({ params }: Props): Promise<Metadata> {
+//     const { slug } = await params;
+//     const pageData = await getPageData(slug);
 
-    if (!pageData) {
-        return {
-            title: "Page Not Found"
-        };
-    }
+//     if (!pageData) {
+//         return {
+//             title: "Page Not Found"
+//         };
+//     }
 
-    return {
-        title: pageData.title,
-    };
-}
+//     return {
+//         title: pageData.title,
+//     };
+// }
 
 export default async function DynamicPage({ params }: Props) {
     const { slug } = await params;
