@@ -95,7 +95,11 @@ export async function POST(request: Request) {
             body,
         });
 
-        return NextResponse.json({ success: true, url: response.data.html_url });
+        return NextResponse.json({
+            success: true,
+            url: response.data.html_url,
+            number: response.data.number
+        });
     } catch (error: any) {
         console.error('Error creating issue:', error);
         return NextResponse.json(
