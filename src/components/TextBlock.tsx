@@ -19,6 +19,7 @@ export default function TextBlock({ initialIssues = [] }: TextBlockProps) {
     const [showInput, setShowInput] = useState(false);
     const [inputPosition, setInputPosition] = useState({ top: 0, left: 0 });
     const [selectedText, setSelectedText] = useState('');
+    const [selectionType, setSelectionType] = useState<'text' | 'image'>('text');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [toast, setToast] = useState<{ show: boolean; message: string }>({ show: false, message: '' });
@@ -45,6 +46,7 @@ export default function TextBlock({ initialIssues = [] }: TextBlockProps) {
     const inputRef = useRef<HTMLDivElement>(null);
     const issueCardRef = useRef<HTMLDivElement>(null);
     const selectionRangeRef = useRef<Range | null>(null);
+    const lastClickedImageRef = useRef<HTMLImageElement | null>(null);
 
     useEffect(() => {
         // Immediate highlight from server props
@@ -86,50 +88,83 @@ export default function TextBlock({ initialIssues = [] }: TextBlockProps) {
         issuesToHighlight.forEach(issue => {
             if (!issue.text) return;
 
-            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-            const nodesToHighlight: { node: Node, index: number }[] = [];
+            // Handle Text or Image
+            if (!issue.text.startsWith('![')) {
+                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+                const nodesToHighlight: { node: Node, index: number }[] = [];
 
-            let node;
-            while (node = walker.nextNode()) {
-                const val = node.nodeValue;
-                if (val && val.includes(issue.text)) {
-                    // Check if already highlighted to avoid double-wrapping
-                    const parent = node.parentElement;
-                    if (parent && parent.classList.contains('issue-highlight')) continue;
+                let node;
+                while (node = walker.nextNode()) {
+                    const val = node.nodeValue;
+                    if (val && val.includes(issue.text)) {
+                        // Check if already highlighted to avoid double-wrapping
+                        const parent = node.parentElement;
+                        if (parent && parent.classList.contains('issue-highlight')) continue;
 
-                    nodesToHighlight.push({ node, index: val.indexOf(issue.text) });
+                        nodesToHighlight.push({ node, index: val.indexOf(issue.text) });
+                    }
+                }
+
+                nodesToHighlight.forEach(({ node, index }) => {
+                    try {
+                        const range = document.createRange();
+                        range.setStart(node, index);
+                        range.setEnd(node, index + issue.text.length);
+
+                        const span = document.createElement('span');
+                        span.className = 'issue-highlight';
+                        span.setAttribute('data-issue-id', issue.id);
+
+                        Object.assign(span.style, {
+                            backgroundColor: '#a3a7b0ff',
+                            color: 'black',
+                            cursor: 'pointer',
+                            borderRadius: '5px',
+                            padding: '2px 0',
+                            boxDecorationBreak: 'clone',
+                            WebkitBoxDecorationBreak: 'clone'
+                        });
+
+                        range.surroundContents(span);
+                    } catch (e) {
+                        console.error("Re-highlight error:", e);
+                    }
+                });
+            } else {
+                // Handle Image highlight Re-application
+                const match = issue.text.match(/!\[.*\]\((.*)\)/);
+                if (match) {
+                    const reportedSrc = match[1];
+                    const allImgs = document.querySelectorAll('img');
+
+                    allImgs.forEach(img => {
+                        const image = img as HTMLImageElement;
+                        // Avoid double-highlighting
+                        if (image.classList.contains('issue-highlight-image')) return;
+
+                        // Flexible matching: Absolute, Relative, or Next.js optimized URL
+                        const currentSrc = image.src;
+                        const attrSrc = image.getAttribute('src');
+
+                        const isMatch = (currentSrc === reportedSrc) ||
+                            (attrSrc === reportedSrc) ||
+                            (reportedSrc.includes(attrSrc || '___never___')) ||
+                            (attrSrc?.includes(reportedSrc) || false);
+
+                        if (isMatch) {
+                            image.classList.add('issue-highlight-image');
+                            image.setAttribute('data-issue-id', issue.id);
+                            Object.assign(image.style, {
+                                outline: '4px solid #3b82f6',
+                                outlineOffset: '2px',
+                                cursor: 'pointer',
+                                filter: 'brightness(0.9)',
+                                transition: 'all 0.2s ease'
+                            });
+                        }
+                    });
                 }
             }
-
-            // Apply highlights (reverse order to not mess up indices if in same node?)
-            // Actually, TreeWalker is live? No.
-            // We need to be careful about modifying DOM while walking.
-            // Best to collect nodes then modify.
-            nodesToHighlight.forEach(({ node, index }) => {
-                try {
-                    const range = document.createRange();
-                    range.setStart(node, index);
-                    range.setEnd(node, index + issue.text.length);
-
-                    const span = document.createElement('span');
-                    span.className = 'issue-highlight';
-                    span.setAttribute('data-issue-id', issue.id);
-
-                    Object.assign(span.style, {
-                        backgroundColor: '#a3a7b0ff',
-                        color: 'black',
-                        cursor: 'pointer',
-                        borderRadius: '5px',
-                        padding: '2px 0',
-                        boxDecorationBreak: 'clone',
-                        WebkitBoxDecorationBreak: 'clone'
-                    });
-
-                    range.surroundContents(span);
-                } catch (e) {
-                    console.error("Re-highlight error:", e);
-                }
-            });
         });
     };
 
@@ -201,6 +236,7 @@ export default function TextBlock({ initialIssues = [] }: TextBlockProps) {
 
                         setInputPosition({ top, left });
                         setSelectedText(text);
+                        setSelectionType('text');
                         setTitle('');
                         setDescription('');
                         setShowInput(true);
@@ -211,7 +247,7 @@ export default function TextBlock({ initialIssues = [] }: TextBlockProps) {
 
         const handleClickOnHighlight = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
-            if (target.classList.contains('issue-highlight')) {
+            if (target.classList.contains('issue-highlight') || target.classList.contains('issue-highlight-image')) {
                 const issueId = target.getAttribute('data-issue-id');
                 const issue = issues.find(i => i.id === issueId);
 
@@ -242,8 +278,8 @@ export default function TextBlock({ initialIssues = [] }: TextBlockProps) {
             if (showInput || showIssueCard) return;
 
             const target = e.target as HTMLElement;
-            // Check if clicked element is an image
-            if (target.tagName === 'IMG') {
+            // Check if clicked element is an image AND not already highlighted
+            if (target.tagName === 'IMG' && !target.classList.contains('issue-highlight-image')) {
                 e.preventDefault();
                 e.stopPropagation();
 
@@ -260,10 +296,13 @@ export default function TextBlock({ initialIssues = [] }: TextBlockProps) {
 
                 setInputPosition({ top, left });
                 setSelectedText(`![${img.alt || 'image'}](${img.src})`);
+                setSelectionType('image');
                 setTitle('');
                 setDescription('');
                 setShowInput(true);
 
+                // Store image ref for highlighting later
+                lastClickedImageRef.current = img;
                 // Clear text selection ref since this is an image
                 selectionRangeRef.current = null;
             }
@@ -330,7 +369,7 @@ export default function TextBlock({ initialIssues = [] }: TextBlockProps) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     title: shortTitle || "New Issue from Selection",
-                    body: `**Description:**\n${finalBody || description}\n\n**Selected Text:**\n> ${selectedText}\n\n**Page URL:**\n${window.location.href}`,
+                    body: `**Description:**\n${finalBody || description}\n\n**Selected ${selectionType === 'image' ? 'Image' : 'Text'}:**\n${selectionType === 'image' ? '' : '> '}${selectedText}\n\n${selectionType === 'image' ? `**Image Link:** ${selectedText.match(/\((.*)\)/)?.[1] || ''}\n\n` : ''}**Page URL:**\n${window.location.href}`,
                 }),
             });
 
@@ -350,16 +389,20 @@ export default function TextBlock({ initialIssues = [] }: TextBlockProps) {
             };
 
             setIssues(prev => [...prev, newIssue]);
-            highlightTextRange(newIssue);
+            applyHighlight(newIssue);
 
             // Transition immediately to the "Linked Issue" card
-            // Use the stored range to locate the position, as selection might be lost
-            const range = selectionRangeRef.current;
-            if (range) {
-                const rect = range.getBoundingClientRect();
-                let left = rect.left + (rect.width / 2) - 160;
-                let top = rect.top - 140;
-                if (top < 10) top = rect.bottom + 10;
+            let targetRect = null;
+            if (selectionType === 'image' && lastClickedImageRef.current) {
+                targetRect = lastClickedImageRef.current.getBoundingClientRect();
+            } else if (selectionRangeRef.current) {
+                targetRect = selectionRangeRef.current.getBoundingClientRect();
+            }
+
+            if (targetRect) {
+                let left = targetRect.left + (targetRect.width / 2) - 160;
+                let top = targetRect.top - 140;
+                if (top < 10) top = targetRect.bottom + 10;
                 left = Math.max(10, Math.min(left, window.innerWidth - 330));
 
                 setIssueCardPosition({ top, left });
@@ -440,13 +483,32 @@ export default function TextBlock({ initialIssues = [] }: TextBlockProps) {
         }
     };
 
-    const highlightTextRange = (issue: TextIssue) => {
-        // Use the stored range instead of the current selection
-        // because correct selection is often lost during the async fetch
+    const applyHighlight = (issue: TextIssue) => {
+        // Handle Image highlighting
+        if (selectionType === 'image' && lastClickedImageRef.current) {
+            const img = lastClickedImageRef.current;
+            // Ensure we don't apply multiple highlights to same element
+            if (img.classList.contains('issue-highlight-image')) return;
+
+            img.classList.add('issue-highlight-image');
+            img.setAttribute('data-issue-id', issue.id);
+            Object.assign(img.style, {
+                outline: '4px solid #3b82f6',
+                outlineOffset: '2px',
+                cursor: 'pointer',
+                filter: 'brightness(0.9)',
+                transition: 'all 0.2s ease'
+            });
+            return;
+        }
+
+        // Handle Text highlighting
         const range = selectionRangeRef.current;
 
         if (!range) {
-            console.error("No selection range found to highlight");
+            if (selectionType === 'text') {
+                console.error("No selection range found to highlight");
+            }
             return;
         }
 
@@ -495,12 +557,23 @@ export default function TextBlock({ initialIssues = [] }: TextBlockProps) {
             // Success!
             showToastMessage("Issue Closed Successfully");
 
-            // Remove highlight
+            // Remove highlights (Text or Image)
             const highlights = document.querySelectorAll(`[data-issue-id="${hoveredIssue.id}"]`);
             highlights.forEach(el => {
-                const parent = el.parentNode;
-                while (el.firstChild) parent?.insertBefore(el.firstChild, el);
-                parent?.removeChild(el);
+                if (el.classList.contains('issue-highlight')) {
+                    // Text highlight removal
+                    const parent = el.parentNode;
+                    while (el.firstChild) parent?.insertBefore(el.firstChild, el);
+                    parent?.removeChild(el);
+                } else if (el.classList.contains('issue-highlight-image')) {
+                    // Image highlight removal
+                    const img = el as HTMLImageElement;
+                    img.classList.remove('issue-highlight-image');
+                    img.removeAttribute('data-issue-id');
+                    img.style.outline = 'none';
+                    img.style.outlineOffset = '0';
+                    img.style.cursor = 'default';
+                }
             });
 
             setIssues(prev => prev.filter(i => i.id !== hoveredIssue.id));
@@ -527,6 +600,11 @@ export default function TextBlock({ initialIssues = [] }: TextBlockProps) {
                     className="fixed z-[9999] bg-white rounded-[20px] shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 p-1 w-[320px] animate-in fade-in zoom-in-95 duration-200"
                     style={{ top: `${inputPosition.top}px`, left: `${inputPosition.left}px`, bottom: 'auto' }}
                 >
+                    <div className="px-4 pt-3">
+                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                            NEW {selectionType === 'image' ? 'IMAGE' : 'TEXT'} ISSUE
+                        </span>
+                    </div>
                     <div className="p-3">
                         <textarea
                             value={description}
@@ -599,6 +677,20 @@ export default function TextBlock({ initialIssues = [] }: TextBlockProps) {
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                                     </button>
                                 </div>
+                            </div>
+
+                            <div className="mt-2 p-3 bg-gray-50 rounded-xl border border-gray-100 mb-4">
+                                <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">QUICK CONTEXT</div>
+                                {hoveredIssue.text.startsWith('![') ? (
+                                    <div className="text-[13px] text-gray-600 flex items-center gap-2">
+                                        <span className="p-1 bg-white border border-gray-200 rounded">🖼️</span>
+                                        <span className="truncate">Image selection</span>
+                                    </div>
+                                ) : (
+                                    <div className="text-[13px] text-gray-600 italic line-clamp-2 leading-relaxed">
+                                        "{hoveredIssue.text}"
+                                    </div>
+                                )}
                             </div>
 
                             {showCommentInput ? (

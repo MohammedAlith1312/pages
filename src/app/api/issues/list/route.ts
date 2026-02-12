@@ -62,15 +62,28 @@ export async function GET() {
             per_page: 100
         });
 
-        const issues = data.map(issue => ({
-            id: `issue-${issue.id}`,
-            issueNumber: issue.number,
-            title: issue.title,
-            body: issue.body,
-            url: issue.html_url,
-            // Extract selected text from body strictly
-            selectedText: issue.body?.split('**Selected Text:**\n> ')[1]?.split('\n')[0]?.trim() || ''
-        })).filter(i => i.selectedText && i.selectedText.length > 0);
+        const issues = data.map(issue => {
+            const body = issue.body || '';
+            let extractedText = '';
+
+            // Try Text selection format
+            if (body.includes('**Selected Text:**\n> ')) {
+                extractedText = body.split('**Selected Text:**\n> ')[1]?.split('\n')[0]?.trim() || '';
+            }
+            // Try Image selection format
+            else if (body.includes('**Selected Image:**\n')) {
+                extractedText = body.split('**Selected Image:**\n')[1]?.split('\n')[0]?.trim() || '';
+            }
+
+            return {
+                id: `issue-${issue.id}`,
+                issueNumber: issue.number,
+                title: issue.title,
+                body: body,
+                url: issue.html_url,
+                selectedText: extractedText
+            };
+        }).filter(i => i.selectedText && i.selectedText.length > 0);
 
         return NextResponse.json({ issues });
 

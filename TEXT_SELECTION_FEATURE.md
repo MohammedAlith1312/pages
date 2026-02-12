@@ -1,61 +1,61 @@
-# Text Selection to GitHub Issue Feature
+# Text & Image Selection to GitHub Issue Feature
 
 ## Overview
-This feature allows users to select any text on the website and create a GitHub issue directly from that selection.
+This feature allows users to select any text or click any image on the website and create a GitHub issue directly from that selection.
 
 ## How It Works
 
 ### User Flow:
-1. **Select Text**: User highlights any text on any page
-2. **Prompt for Title**: A prompt appears asking for an issue title (shows preview of selected text)
-3. **Confirm Creation**: A confirmation dialog shows the title and selected text
-4. **Create Issue**: If confirmed, creates a GitHub issue via API
-5. **Success Notification**: Shows success message with issue URL
-6. **Optional Open**: Asks if user wants to open the issue in GitHub
+1. **Select Content**: 
+   - **Text**: User highlights any text on any page.
+   - **Image**: User clicks on any image.
+2. **Issue Form**: A popup appears at the selection location.
+3. **Submit**: User enters a description (first line becomes the issue title) and clicks "Create Issue".
+4. **Success Notification**: Shows success message and automatically opens a "Linked Issue" card for management.
 
 ### Technical Implementation:
 
-**Component**: `TextSelectionAlert.tsx`
-- Client-side component that listens for text selection
-- Uses `mouseup` event to detect when user finishes selecting text
-- Prevents duplicate triggers with `isCreating` state
-- Integrated into root layout (works on all pages)
+**Component**: `TextBlock.tsx`
+- Client-side component that listens for both text selection (`mouseup`) and image clicks (`click`).
+- Injected into the root layout to work across all pages.
+- Dynamically calculates position to appear near the selection.
+- Automatically highlights existing open issues on page load.
 
 **API Integration**: 
-- Uses existing `/api/issues/create` endpoint
+- Uses `/api/issues/create` for creation.
+- Uses `/api/issues/list` to fetch existing issues for highlighting.
 - Sends POST request with:
-  - `title`: User-provided issue title
-  - `body`: Formatted markdown with selected text, page URL, and timestamp
+  - `title`: Extracted from the first line of the description.
+  - `body`: Formatted markdown with selected content, page URL, and metadata.
 
 **Issue Format**:
 ```markdown
-**Selected Text:**
-> [User's selected text]
+**Description:**
+[User description]
 
-**Page URL:** [Current page URL]
+**Selected [Text|Image]:**
+[> Selected text OR markdown image]
 
-**Timestamp:** [ISO timestamp]
+**Page URL:**
+[Current page URL]
 ```
 
 ## Files Modified:
 
-1. **Created**: `src/components/TextSelectionAlert.tsx`
-   - Main component with selection logic
+1. **Created**: `src/components/TextBlock.tsx`
+   - Main component handling selection, UI, and highlighting.
    
 2. **Modified**: `src/app/layout.tsx`
-   - Added `<TextSelectionAlert />` component to root layout
+   - Integrated `<TextBlock />` with server-side issue fetching.
 
 ## Features:
 
-✅ Works on all pages (integrated in root layout)
-✅ Shows preview of selected text in prompt
-✅ Confirmation dialog before creating issue
-✅ Full error handling with user-friendly messages
-✅ Success notification with issue URL
-✅ Optional auto-open issue in new tab
-✅ Prevents duplicate triggers during issue creation
-✅ Captures page context (URL, timestamp)
-✅ Formats selected text as blockquote in issue
+✅ Works with both Text and Images
+✅ Automatic on-page highlighting of reported text
+✅ Live issue management (view, edit, comment, close) from the page
+✅ Smart selection type detection (Labels issues correctly)
+✅ Works on all pages via root layout
+✅ Captures full URL context
 
 ## Usage:
 

@@ -62,14 +62,28 @@ export async function fetchOpenIssues() {
             }
         });
 
-        const issues = data.map(issue => ({
-            id: `issue-${issue.id}`,
-            text: issue.body?.split('**Selected Text:**\n> ')[1]?.split('\n')[0]?.trim() || '',
-            issueUrl: issue.html_url,
-            issueNumber: issue.number,
-            title: issue.title,
-            description: issue.body || ''
-        })).filter(i => i.text && i.text.length > 0);
+        const issues = data.map(issue => {
+            const body = issue.body || '';
+            let extractedText = '';
+
+            // Try Text selection format
+            if (body.includes('**Selected Text:**\n> ')) {
+                extractedText = body.split('**Selected Text:**\n> ')[1]?.split('\n')[0]?.trim() || '';
+            }
+            // Try Image selection format
+            else if (body.includes('**Selected Image:**\n')) {
+                extractedText = body.split('**Selected Image:**\n')[1]?.split('\n')[0]?.trim() || '';
+            }
+
+            return {
+                id: `issue-${issue.id}`,
+                text: extractedText,
+                issueUrl: issue.html_url,
+                issueNumber: issue.number,
+                title: issue.title,
+                description: body
+            };
+        }).filter(i => i.text && i.text.length > 0);
 
         return issues;
 
