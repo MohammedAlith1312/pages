@@ -85,10 +85,10 @@ content:
   # === DYNAMIC PAGES ===
   - name: pages
     label: Pages
-    path: docs
+    path: pages
     type: collection
     
-    filename: "{fields.slug}.md"
+    filename: "{fields.slug}.json"
     fields:
       - name: title
         label: Page Title
