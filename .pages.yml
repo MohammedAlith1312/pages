@@ -87,8 +87,8 @@ content:
     label: Pages
     path: docs
     type: collection
-    format: json
-    filename: "{fields.slug}.json"
+    
+    filename: "{fields.slug}.md"
     fields:
       - name: title
         label: Page Title
