@@ -85,7 +85,7 @@ content:
   # === DYNAMIC PAGES ===
   - name: pages
     label: Pages
-    path: lib/pages
+    path: docs
     type: collection
     format: json
     filename: "{fields.slug}.json"
